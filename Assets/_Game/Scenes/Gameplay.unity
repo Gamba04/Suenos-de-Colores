@@ -686,7 +686,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   input: {fileID: 622305099}
   graphics: {fileID: 875285199}
-  pictureDelay: 1
+  previewDelay: 2
 --- !u!114 &622305099
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -973,7 +973,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   viewport: {fileID: 685764689}
-  animator: {fileID: 0}
+  animator: {fileID: 875285200}
+  focusRadius: 0.25
 --- !u!95 &875285200
 Animator:
   serializedVersion: 3

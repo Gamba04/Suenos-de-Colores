@@ -11,11 +11,11 @@ public class WebcamController : MonoBehaviour
 
     [Header("Settings")]
     [SerializeField]
-    private float pictureDelay = 1;
+    private float previewDelay = 2;
 
     private WebCamTexture webcam;
 
-    public event Action<RenderTexture> onPicture;
+    public event Action<Color> onPicture;
 
     #region Init
 
@@ -68,17 +68,16 @@ public class WebcamController : MonoBehaviour
 
         SetWebcam(false);
 
-        Timer.CallOnDelay(CloseWebcam, pictureDelay, "Picture delay");
+        Timer.CallOnDelay(CloseWebcam, previewDelay, "Preview delay");
     }
 
     private void CloseWebcam()
     {
         SetGraphics(false);
+        
+        Color targetColor = WebcamProcessing.GetTargetColor(webcam, graphics.FocusRadius);
 
-        RenderTexture texture = new RenderTexture(webcam.width, webcam.height, 0);
-        Graphics.Blit(webcam, texture);
-
-        onPicture?.Invoke(texture);
+        onPicture?.Invoke(targetColor);
     }
 
     #endregion
@@ -117,7 +116,7 @@ public class WebcamController : MonoBehaviour
 
     private void OnValidate()
     {
-        pictureDelay = Mathf.Max(pictureDelay, 0);
+        previewDelay = Mathf.Max(previewDelay, 0);
     }
 
 #endif
