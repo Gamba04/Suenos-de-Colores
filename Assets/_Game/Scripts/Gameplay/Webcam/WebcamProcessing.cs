@@ -3,11 +3,14 @@ using UnityEngine;
 
 public static class WebcamProcessing
 {
+    private const float brightnessBoost = 1.4f;
+
     public static Color GetPictureColor(Texture2D picture, float radius)
     {
         List<Color> colors = GetValidColors(picture, radius * picture.height);
+        Color color = GetAverage(colors);
 
-        return GetAverage(colors);
+        return color * brightnessBoost;
     }
 
     private static List<Color> GetValidColors(Texture2D picture, float radius)
