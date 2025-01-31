@@ -5,8 +5,9 @@ public class GameplayController : MonoBehaviour
     [Header("Components")]
     [SerializeField]
     private WebcamController webcamController;
+    [SerializeField]
+    private BearController bearController;
 
-    private bool pictureTaken;
     private Color pictureColor;
 
     #region Start
@@ -17,7 +18,7 @@ public class GameplayController : MonoBehaviour
 
         webcamController.Init();
 
-        UIFade.SetFade(false, onFinishFade: TestWebcam); // Temp
+        UIFade.SetFade(false, onFinishFade: TakePicture); // Temp
     }
 
     private void InitEvents()
@@ -25,24 +26,45 @@ public class GameplayController : MonoBehaviour
         webcamController.onPictureTaken += OnPictureTaken;
     }
 
-    private void TestWebcam()
+    #endregion
+
+    // ----------------------------------------------------------------------------------------------------------------------------
+
+    #region Gameplay
+
+    public void TakePicture()
     {
-        if (!webcamController.OpenWebcam())
+        if (webcamController.OpenWebcam())
         {
-            Debug.Log("No image");
+            SetInteractions(false);
         }
+        else Debug.Log("No image");
+    }
+
+    private void OnPictureTaken(Color color)
+    {
+        pictureColor = color;
+
+        SetInteractions(true);
+        //SetBearButton(true);
+    }
+
+    public void PlayBear()
+    {
+        bearController.Play(pictureColor);
+
+        SetInteractions(false);
     }
 
     #endregion
 
     // ----------------------------------------------------------------------------------------------------------------------------
 
-    #region Picture
+    #region Other
 
-    private void OnPictureTaken(Color color)
+    private void SetInteractions(bool enabled)
     {
-        pictureTaken = true;
-        pictureColor = color;
+        Button.Interactions = enabled;
     }
 
     #endregion

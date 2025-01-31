@@ -65,9 +65,9 @@ public class WebcamController : MonoBehaviour
 
     private void TakePicture()
     {
-        SavePicture();
-
         graphics.TakePicture();
+
+        SavePicture();
         SetWebcam(false);
 
         Timer.CallOnDelay(CloseWebcam, previewDelay, "Preview delay");
@@ -95,7 +95,7 @@ public class WebcamController : MonoBehaviour
     private void CloseWebcam()
     {
         SetGraphics(false);
-        
+
         Color color = WebcamProcessing.GetPictureColor(picture, graphics.FocusRadius);
 
         onPictureTaken?.Invoke(color);
