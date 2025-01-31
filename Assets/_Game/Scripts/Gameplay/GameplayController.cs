@@ -17,7 +17,7 @@ public class GameplayController : MonoBehaviour
 
         webcamController.Init();
 
-        TestWebcam(); // Temp
+        UIFade.SetFade(false, onFinishFade: TestWebcam); // Temp
     }
 
     private void InitEvents()
