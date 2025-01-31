@@ -7,7 +7,7 @@ public class GameplayController : MonoBehaviour
     private WebcamController webcamController;
 
     private bool pictureTaken;
-    private Color targetColor;
+    private Color pictureColor;
 
     #region Start
 
@@ -22,7 +22,7 @@ public class GameplayController : MonoBehaviour
 
     private void InitEvents()
     {
-        webcamController.onPicture += OnPicture;
+        webcamController.onPictureTaken += OnPictureTaken;
     }
 
     private void TestWebcam()
@@ -39,10 +39,10 @@ public class GameplayController : MonoBehaviour
 
     #region Picture
 
-    private void OnPicture(Color color)
+    private void OnPictureTaken(Color color)
     {
         pictureTaken = true;
-        targetColor = color;
+        pictureColor = color;
     }
 
     #endregion

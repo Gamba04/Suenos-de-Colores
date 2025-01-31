@@ -3,32 +3,32 @@ using UnityEngine;
 
 public static class WebcamProcessing
 {
-    public static Color GetTargetColor(WebCamTexture texture, float radius)
+    public static Color GetPictureColor(Texture2D picture, float radius)
     {
-        List<Color> colors = GetValidColors(texture, radius * texture.height);
+        List<Color> colors = GetValidColors(picture, radius * picture.height);
 
         return GetAverage(colors);
     }
 
-    private static List<Color> GetValidColors(WebCamTexture texture, float radius)
+    private static List<Color> GetValidColors(Texture2D picture, float radius)
     {
         List<Color> colors = new List<Color>();
-        Vector2 center = new Vector2(texture.width, texture.height) / 2;
+        Vector2 center = new Vector2(picture.width, picture.height) / 2;
 
-        for (int x = 0; x < texture.width; x++)
+        for (int x = 0; x < picture.width; x++)
         {
-            for (int y = 0; y < texture.height; y++)
+            for (int y = 0; y < picture.height; y++)
             {
                 Vector2 position = new Vector2(x, y);
 
                 if (Vector2.Distance(center, position) <= radius)
                 {
-                    colors.Add(texture.GetPixel(x, y));
+                    colors.Add(picture.GetPixel(x, y));
                 }
             }
         }
 
-        return default;
+        return colors;
     }
 
     private static Color GetAverage(List<Color> colors)

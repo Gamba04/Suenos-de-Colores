@@ -14,8 +14,9 @@ public class WebcamController : MonoBehaviour
     private float previewDelay = 2;
 
     private WebCamTexture webcam;
+    private Texture2D picture;
 
-    public event Action<Color> onPicture;
+    public event Action<Color> onPictureTaken;
 
     #region Init
 
@@ -60,24 +61,44 @@ public class WebcamController : MonoBehaviour
 
     // ----------------------------------------------------------------------------------------------------------------------------
 
-    #region Process
+    #region Picture
 
     private void TakePicture()
     {
-        graphics.TakePicture();
+        SavePicture();
 
+        graphics.TakePicture();
         SetWebcam(false);
 
         Timer.CallOnDelay(CloseWebcam, previewDelay, "Preview delay");
+    }
+
+    private void SavePicture()
+    {
+        Vector2Int size = new Vector2Int(webcam.width, webcam.height);
+
+        picture = new Texture2D(size.x, size.y);
+
+        for (int x = 0; x < size.x; x++)
+        {
+            for (int y = 0; y < size.y; y++)
+            {
+                Color color = webcam.GetPixel(x, y);
+
+                picture.SetPixel(x, y, color);
+            }
+        }
+
+        picture.Apply();
     }
 
     private void CloseWebcam()
     {
         SetGraphics(false);
         
-        Color targetColor = WebcamProcessing.GetTargetColor(webcam, graphics.FocusRadius);
+        Color color = WebcamProcessing.GetPictureColor(picture, graphics.FocusRadius);
 
-        onPicture?.Invoke(targetColor);
+        onPictureTaken?.Invoke(color);
     }
 
     #endregion
