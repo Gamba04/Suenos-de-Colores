@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEditor;
 
 public class WebcamGraphics : MonoBehaviour
 {
@@ -8,6 +9,8 @@ public class WebcamGraphics : MonoBehaviour
     private RawImage viewport;
     [SerializeField]
     private Animator animator;
+    [SerializeField]
+    private RectTransform focusHint;
 
     [Header("Settings")]
     [Range(0, 1)]
@@ -19,10 +22,18 @@ public class WebcamGraphics : MonoBehaviour
     private readonly int visibleID = Animator.StringToHash("Visible");
     private readonly int takePictureID = Animator.StringToHash("TakePicture");
 
+    #region Init
+
     public void Init(WebCamTexture texture)
     {
         viewport.texture = texture;
     }
+
+    #endregion
+
+    // ----------------------------------------------------------------------------------------------------------------------------
+
+    #region Public Methods
 
     public void SetGraphics(bool enabled)
     {
@@ -33,4 +44,35 @@ public class WebcamGraphics : MonoBehaviour
     {
         animator.SetTrigger(takePictureID);
     }
+
+    #endregion
+
+    // ----------------------------------------------------------------------------------------------------------------------------
+
+    #region Editor
+
+#if UNITY_EDITOR
+
+    private void OnValidate()
+    {
+        if (focusHint == null) return;
+
+        focusHint.localScale = GambaFunctions.GetScaleOf(focusRadius);
+    }
+
+    private void OnDrawGizmos()
+    {
+        RectTransform root = transform as RectTransform;
+
+        Vector3 position = root.position;
+        float radius = focusRadius * root.rect.height * root.lossyScale.y / 2;
+
+        Handles.color = Color.black;
+        Handles.DrawWireArc(position, Vector3.forward, Vector3.up, 360, radius);
+    }
+
+#endif
+
+    #endregion
+
 }
