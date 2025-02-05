@@ -5,28 +5,28 @@ public static class WebcamProcessing
 {
     private const float brightnessBoost = 1.4f;
 
-    public static Color GetPictureColor(Texture2D picture, float radius)
+    public static Color GetColor(WebCamTexture webcam, float radius)
     {
-        List<Color> colors = GetValidColors(picture, radius * picture.height);
-        Color color = GetAverage(colors);
+        List<Color> pixels = GetValidPixels(webcam, radius * webcam.height);
+        Color color = GetAverage(pixels);
 
         return color * brightnessBoost;
     }
 
-    private static List<Color> GetValidColors(Texture2D picture, float radius)
+    private static List<Color> GetValidPixels(WebCamTexture webcam, float radius)
     {
         List<Color> colors = new List<Color>();
-        Vector2 center = new Vector2(picture.width, picture.height) / 2;
+        Vector2 center = new Vector2(webcam.width, webcam.height) / 2;
 
-        for (int x = 0; x < picture.width; x++)
+        for (int x = 0; x < webcam.width; x++)
         {
-            for (int y = 0; y < picture.height; y++)
+            for (int y = 0; y < webcam.height; y++)
             {
                 Vector2 position = new Vector2(x, y);
 
                 if (Vector2.Distance(center, position) <= radius)
                 {
-                    colors.Add(picture.GetPixel(x, y));
+                    colors.Add(webcam.GetPixel(x, y));
                 }
             }
         }
@@ -34,12 +34,12 @@ public static class WebcamProcessing
         return colors;
     }
 
-    private static Color GetAverage(List<Color> colors)
+    private static Color GetAverage(List<Color> pixels)
     {
         Color color = default;
 
-        colors.ForEach(c => color += c);
-        color /= colors.Count;
+        pixels.ForEach(pixel => color += pixel);
+        color /= pixels.Count;
 
         return color;
     }

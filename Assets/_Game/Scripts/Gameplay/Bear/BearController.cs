@@ -6,11 +6,22 @@ public class BearController : MonoBehaviour
     [SerializeField]
     private Material colorMaterial;
 
+    private bool isPlaying;
+
+    public bool IsAvailable => !isPlaying;
+
     #region Public Methods
 
-    public void Play(Color color)
+    public void Play(BearType bear, Color color)
     {
+        isPlaying = true;
+
         colorMaterial.color = color;
+    }
+
+    public void AnimFinish()
+    {
+        isPlaying = true;
     }
 
     #endregion
