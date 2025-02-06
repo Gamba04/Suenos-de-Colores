@@ -4,7 +4,11 @@ public class BearController : MonoBehaviour
 {
     [Header("Components")]
     [SerializeField]
-    private Material colorMaterial;
+    private BearGraphics graphics;
+
+    [Header("Settings")]
+    [SerializeField]
+    private uint animationsAmount = 1;
 
     private bool isPlaying;
 
@@ -16,7 +20,12 @@ public class BearController : MonoBehaviour
     {
         isPlaying = true;
 
-        colorMaterial.color = color;
+        graphics.SetBear(bear);
+        graphics.SetColor(color);
+
+        int animation = GetRandomAnimation();
+
+        graphics.Play(animation);
     }
 
     public void AnimFinish()
@@ -28,16 +37,12 @@ public class BearController : MonoBehaviour
 
     // ----------------------------------------------------------------------------------------------------------------------------
 
-    #region Editor
+    #region Other
 
-#if UNITY_EDITOR
-
-    private void OnValidate()
+    private int GetRandomAnimation()
     {
-        colorMaterial.color = Color.white;
+        return Random.Range(0, (int)animationsAmount);
     }
-
-#endif
 
     #endregion
 
