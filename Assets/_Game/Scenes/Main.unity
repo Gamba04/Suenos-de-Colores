@@ -214,6 +214,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
+  - {fileID: 238516488}
   - {fileID: 22534875}
   m_Father: {fileID: 301562769}
   m_RootOrder: 1
@@ -252,7 +253,7 @@ RectTransform:
   m_Children:
   - {fileID: 6400442492753148539}
   m_Father: {fileID: 20363270}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -303,6 +304,55 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   requests: []
+--- !u!1 &238516487
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 238516488}
+  - component: {fileID: 238516489}
+  m_Layer: 5
+  m_Name: Webcam
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &238516488
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 238516487}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 20363270}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &238516489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 238516487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1107803aaae052c429f266482e3a2c33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outfits: []
 --- !u!1 &260287925
 GameObject:
   m_ObjectHideFlags: 0
@@ -1624,7 +1674,6 @@ GameObject:
   - component: {fileID: 2144003971}
   - component: {fileID: 2144003972}
   - component: {fileID: 2144003973}
-  - component: {fileID: 2144003974}
   - component: {fileID: 2144003970}
   m_Layer: 0
   m_Name: Gameplay
@@ -1675,7 +1724,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   input: {fileID: 2144003973}
-  webcamController: {fileID: 2144003974}
+  webcamController: {fileID: 238516489}
   bearController: {fileID: 2082121713}
 --- !u!114 &2144003973
 MonoBehaviour:
@@ -1696,19 +1745,6 @@ MonoBehaviour:
     key: 50
   - name: Look_3 (Alpha3)
     key: 51
---- !u!114 &2144003974
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2144003969}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1107803aaae052c429f266482e3a2c33, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  focusRadius: 0.25
 --- !u!224 &6400442492015182496
 RectTransform:
   m_ObjectHideFlags: 0
