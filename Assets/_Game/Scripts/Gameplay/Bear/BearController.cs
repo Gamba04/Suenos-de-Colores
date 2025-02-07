@@ -10,17 +10,30 @@ public class BearController : MonoBehaviour
     [SerializeField]
     private uint animationsAmount = 1;
 
+    [Header("Info")]
+    [ReadOnly, SerializeField]
     private bool isPlaying;
 
     public bool IsAvailable => !isPlaying;
 
+    #region Init
+
+    public void Init()
+    {
+        graphics.Init();
+    }
+
+    #endregion
+
+    // ----------------------------------------------------------------------------------------------------------------------------
+
     #region Public Methods
 
-    public void Play(BearType bear, Color color)
+    public void Play(OutfitTag outfit, Color color)
     {
         isPlaying = true;
 
-        graphics.SetBear(bear);
+        graphics.SetOutfit(outfit);
         graphics.SetColor(color);
 
         int animation = GetRandomAnimation();
@@ -30,7 +43,7 @@ public class BearController : MonoBehaviour
 
     public void AnimFinish()
     {
-        isPlaying = true;
+        isPlaying = false;
     }
 
     #endregion

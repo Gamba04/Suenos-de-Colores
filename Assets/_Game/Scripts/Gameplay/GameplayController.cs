@@ -19,6 +19,7 @@ public class GameplayController : MonoBehaviour
         InitEvents();
 
         webcamController.Init();
+        bearController.Init();
     }
 
     private void InitEvents()
@@ -32,13 +33,13 @@ public class GameplayController : MonoBehaviour
 
     #region Gameplay
 
-    private void OnInput(BearType bear)
+    private void OnInput(OutfitTag outfit)
     {
         if (!IsAvailable) return;
 
         Color color = webcamController.GetCurrentColor();
 
-        bearController.Play(bear, color);
+        bearController.Play(outfit, color);
     }
 
     #endregion

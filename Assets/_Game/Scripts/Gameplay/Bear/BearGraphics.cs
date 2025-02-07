@@ -8,15 +8,15 @@ public class BearGraphics : MonoBehaviour
     #region Custom Data
 
     [Serializable]
-    private class BearData
+    private class OutfitData
     {
         [SerializeField, HideInInspector] private string name;
 
         public Mesh mesh;
 
-        public void SetName(BearType bear)
+        public void SetName(OutfitTag outfit)
         {
-            name = bear.ToString();
+            name = outfit.ToString();
         }
     }
 
@@ -32,7 +32,7 @@ public class BearGraphics : MonoBehaviour
 
     [Header("Settings")]
     [SerializeField]
-    private List<BearData> bears;
+    private List<OutfitData> outfits;
 
     private readonly int playID = Animator.StringToHash("Play");
     private readonly int animationID = Animator.StringToHash("Animation");
@@ -60,9 +60,9 @@ public class BearGraphics : MonoBehaviour
         animator.SetTrigger(playID);
     }
 
-    public void SetBear(BearType bear)
+    public void SetOutfit(OutfitTag outfit)
     {
-        BearData data = bears[(int)bear];
+        OutfitData data = outfits[(int)outfit];
 
         filter.mesh = data.mesh;
     }
@@ -83,8 +83,8 @@ public class BearGraphics : MonoBehaviour
 
     private void OnValidate()
     {
-        bears.Resize(typeof(BearType));
-        bears.ForEach((bear, index) => bear.SetName((BearType)index));
+        outfits.Resize(typeof(OutfitTag));
+        outfits.ForEach((outfit, index) => outfit.SetName((OutfitTag)index));
     }
 
 #endif
