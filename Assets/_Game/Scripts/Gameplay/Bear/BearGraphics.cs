@@ -14,7 +14,7 @@ public class BearGraphics : MonoBehaviour
 
         public Mesh mesh;
 
-        public void SetName(OutfitTag outfit)
+        public void SetName(Outfit outfit)
         {
             name = outfit.ToString();
         }
@@ -37,7 +37,7 @@ public class BearGraphics : MonoBehaviour
     private readonly int playID = Animator.StringToHash("Play");
     private readonly int animationID = Animator.StringToHash("Animation");
 
-    private readonly int colorID = Shader.PropertyToID("_Color");
+    private readonly int colorsID = Shader.PropertyToID("_Colors");
 
     private MaterialPropertyBlock properties;
 
@@ -60,18 +60,24 @@ public class BearGraphics : MonoBehaviour
         animator.SetTrigger(playID);
     }
 
-    public void SetOutfit(OutfitTag outfit)
+    public void SetData(Outfit outfit, List<Color> colors)
     {
         OutfitData data = outfits[(int)outfit];
 
         filter.mesh = data.mesh;
-    }
 
-    public void SetColor(Color color)
-    {
-        properties.SetColor(colorID, color);
+        properties.SetVectorArray(colorsID, GetVectors(colors));
+
         renderer.SetPropertyBlock(properties);
     }
+
+    #endregion
+
+    // ----------------------------------------------------------------------------------------------------------------------------
+
+    #region Other
+
+    private List<Vector4> GetVectors(List<Color> colors) => colors.ConvertAll(color => new Vector4(color.r, color.g, color.b));
 
     #endregion
 
@@ -83,8 +89,8 @@ public class BearGraphics : MonoBehaviour
 
     private void OnValidate()
     {
-        outfits.Resize(typeof(OutfitTag));
-        outfits.ForEach((outfit, index) => outfit.SetName((OutfitTag)index));
+        outfits.Resize(typeof(Outfit));
+        outfits.ForEach((outfit, index) => outfit.SetName((Outfit)index));
     }
 
 #endif

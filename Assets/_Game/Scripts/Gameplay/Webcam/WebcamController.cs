@@ -16,9 +16,9 @@ public class WebcamController : MonoBehaviour
         public Color gizmosColor = Color.white;
 
         [Space]
-        public List<OutfitNode> nodes;
+        public List<OutfitNode> nodes = new List<OutfitNode>();
 
-        public void SetName(OutfitTag outfit)
+        public void SetName(Outfit outfit)
         {
             name = outfit.ToString();
 
@@ -33,7 +33,7 @@ public class WebcamController : MonoBehaviour
 
         public Vector2 position;
 
-        [Range(0, 1)]
+        [Range(0, 0.5f)]
         public float radius;
 
         public void SetName(int index)
@@ -45,7 +45,7 @@ public class WebcamController : MonoBehaviour
     #endregion
 
     [SerializeField]
-    private List<OutfitData> outfits;
+    private List<OutfitData> outfits = new List<OutfitData>();
 
     private WebCamTexture webcam;
 
@@ -65,9 +65,20 @@ public class WebcamController : MonoBehaviour
 
     #region Public Methods
 
-    public Color GetCurrentColor()
+    public List<Color> GetOutfitColors(Outfit outfit)
     {
-        return WebcamProcessing.GetColor(webcam, default);
+        List<Color> colors = new List<Color>();
+
+        OutfitData data = outfits[(int)outfit];
+
+        foreach (OutfitNode node in data.nodes)
+        {
+            Color color = WebcamProcessing.ScanColor(webcam, node.position, node.radius);
+
+            colors.Add(color);
+        }
+
+        return colors;
     }
 
     #endregion
@@ -82,7 +93,7 @@ public class WebcamController : MonoBehaviour
     {
         RectTransform root = transform as RectTransform;
 
-        float scaling = root.rect.height * root.lossyScale.y / 2;
+        float height = root.rect.height * root.lossyScale.y;
 
         foreach (OutfitData outfit in outfits)
         {
@@ -90,8 +101,8 @@ public class WebcamController : MonoBehaviour
 
             foreach (OutfitNode node in outfit.nodes)
             {
-                Vector3 position = node.position * scaling;
-                float radius = node.radius * scaling;
+                Vector3 position = node.position * height;
+                float radius = node.radius * height;
 
                 Handles.DrawWireArc(transform.position + position, Vector3.forward, Vector3.up, 360, radius);
             }
@@ -100,8 +111,8 @@ public class WebcamController : MonoBehaviour
 
     private void OnValidate()
     {
-        outfits.Resize(typeof(OutfitTag));
-        outfits.ForEach((outfit, index) => outfit.SetName((OutfitTag)index));
+        outfits.Resize(typeof(Outfit));
+        outfits.ForEach((outfit, index) => outfit.SetName((Outfit)index));
     }
 
 #endif

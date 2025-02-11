@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum OutfitTag
+public enum Outfit
 {
     Look_1,
     Look_2,
@@ -23,7 +23,7 @@ public class GameplayInput : MonoBehaviour
 
         public void SetName(int index)
         {
-            OutfitTag bear = (OutfitTag)index;
+            Outfit bear = (Outfit)index;
 
             name = $"{bear} ({key})";
         }
@@ -34,7 +34,7 @@ public class GameplayInput : MonoBehaviour
     [SerializeField]
     private List<Keybind> keybinds;
 
-    public event Action<OutfitTag> onInput;
+    public event Action<Outfit> onInput;
 
     #region Update
 
@@ -44,7 +44,7 @@ public class GameplayInput : MonoBehaviour
         {
             if (Input.GetKeyDown(keybinds[i].key))
             {
-                onInput?.Invoke((OutfitTag)i);
+                onInput?.Invoke((Outfit)i);
             }
         }
     }
@@ -59,7 +59,7 @@ public class GameplayInput : MonoBehaviour
 
     private void OnValidate()
     {
-        keybinds.Resize(typeof(OutfitTag));
+        keybinds.Resize(typeof(Outfit));
         keybinds.ForEach((keybind, index) => keybind.SetName(index));
     }
 

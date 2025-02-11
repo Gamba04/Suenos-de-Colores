@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GameplayController : MonoBehaviour
@@ -33,13 +34,13 @@ public class GameplayController : MonoBehaviour
 
     #region Gameplay
 
-    private void OnInput(OutfitTag outfit)
+    private void OnInput(Outfit outfit)
     {
         if (!IsAvailable) return;
 
-        Color color = webcamController.GetCurrentColor();
+         List<Color> colors = webcamController.GetOutfitColors(outfit);
 
-        bearController.Play(outfit, color);
+        bearController.Play(outfit, colors);
     }
 
     #endregion

@@ -5,18 +5,28 @@ public static class WebcamProcessing
 {
     private const float brightnessBoost = 1.4f;
 
-    public static Color GetColor(WebCamTexture webcam, float radius)
+    public static Color ScanColor(WebCamTexture webcam, Vector2 position, float radius)
     {
-        List<Color> pixels = GetValidPixels(webcam, radius * webcam.height);
+        // Process values
+        position *= webcam.height;
+        position += new Vector2(webcam.width, webcam.height);
+
+        radius *= webcam.height;
+
+        // Get color
+        List<Color> pixels = GetValidPixels(webcam, position, radius);
         Color color = GetAverage(pixels);
 
-        return color * brightnessBoost;
+        // Process color
+        color *= brightnessBoost;
+        color.a = 1;
+
+        return color;
     }
 
-    private static List<Color> GetValidPixels(WebCamTexture webcam, float radius)
+    private static List<Color> GetValidPixels(WebCamTexture webcam, Vector2 center, float radius)
     {
         List<Color> colors = new List<Color>();
-        Vector2 center = new Vector2(webcam.width, webcam.height) / 2;
 
         for (int x = 0; x < webcam.width; x++)
         {

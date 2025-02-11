@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class BearController : MonoBehaviour
@@ -29,12 +30,11 @@ public class BearController : MonoBehaviour
 
     #region Public Methods
 
-    public void Play(OutfitTag outfit, Color color)
+    public void Play(Outfit outfit, List<Color> colors)
     {
         isPlaying = true;
 
-        graphics.SetOutfit(outfit);
-        graphics.SetColor(color);
+        graphics.SetData(outfit, colors);
 
         int animation = GetRandomAnimation();
 
