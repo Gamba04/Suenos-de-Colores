@@ -519,10 +519,16 @@ MonoBehaviour:
   outfits:
   - name: Look_1
     mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+    masks: []
+    albedo: {fileID: 0}
   - name: Look_2
     mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+    masks: []
+    albedo: {fileID: 0}
   - name: Look_3
     mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+    masks: []
+    albedo: {fileID: 0}
 --- !u!4 &406551550
 Transform:
   m_ObjectHideFlags: 0
