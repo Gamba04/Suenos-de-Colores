@@ -9,7 +9,7 @@ public static class WebcamProcessing
     {
         // Process values
         position *= webcam.height;
-        position += new Vector2(webcam.width, webcam.height);
+        position += new Vector2(webcam.width, webcam.height) / 2;
 
         radius *= webcam.height;
 

@@ -66,6 +66,8 @@ public class BearGraphics : MonoBehaviour
 
         filter.mesh = data.mesh;
 
+        if (colors.Count == 0) return;
+
         properties.SetVectorArray(colorsID, GetVectors(colors));
 
         renderer.SetPropertyBlock(properties);
