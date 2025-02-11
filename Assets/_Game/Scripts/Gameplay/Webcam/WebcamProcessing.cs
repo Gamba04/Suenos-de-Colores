@@ -3,7 +3,7 @@ using UnityEngine;
 
 public static class WebcamProcessing
 {
-    private const float brightnessBoost = 1.4f;
+    private const float brightnessBoost = 1.1f;
 
     public static Color ScanColor(WebCamTexture webcam, Vector2 position, float radius)
     {
@@ -47,9 +47,19 @@ public static class WebcamProcessing
     private static Color GetAverage(List<Color> pixels)
     {
         Color color = default;
+        float total = default;
 
-        pixels.ForEach(pixel => color += pixel);
-        color /= pixels.Count;
+        foreach (Color pixel in pixels)
+        {
+            float weight = Mathf.Max(pixel.r, pixel.g, pixel.b);
+
+            color += pixel * weight;
+            total += weight;
+        }
+
+        if (total == 0) return default;
+
+        color /= total;
 
         return color;
     }

@@ -352,7 +352,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1107803aaae052c429f266482e3a2c33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  outfits: []
+  outfits:
+  - name: Look_1
+    gizmosColor: {r: 1, g: 1, b: 1, a: 1}
+    nodes: []
+  - name: Look_2
+    gizmosColor: {r: 1, g: 1, b: 1, a: 1}
+    nodes: []
+  - name: Look_3
+    gizmosColor: {r: 1, g: 1, b: 1, a: 1}
+    nodes: []
 --- !u!1 &260287925
 GameObject:
   m_ObjectHideFlags: 0
