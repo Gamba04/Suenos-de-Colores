@@ -1,20 +1,19 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public static class WebcamProcessing
 {
     private const float brightnessBoost = 1.1f;
 
-    public static Color ScanColor(WebCamTexture webcam, Vector2 position, float radius)
+    public static Color ScanColor(WebCamTexture webcam, Vector2 position, float size)
     {
         // Process values
         position *= webcam.height;
         position += new Vector2(webcam.width, webcam.height) / 2;
 
-        radius *= webcam.height;
+        size *= webcam.height;
 
         // Get color
-        List<Color> pixels = GetValidPixels(webcam, position, radius);
+        Color[] pixels = GetPixels(webcam, position, size);
         Color color = GetAverage(pixels);
 
         // Process color
@@ -24,27 +23,15 @@ public static class WebcamProcessing
         return color;
     }
 
-    private static List<Color> GetValidPixels(WebCamTexture webcam, Vector2 center, float radius)
+    private static Color[] GetPixels(WebCamTexture webcam, Vector2 center, float size)
     {
-        List<Color> colors = new List<Color>();
+        Vector2 block = Vector2.one * size;
+        Vector2 start = center - block / 2;
 
-        for (int x = 0; x < webcam.width; x++)
-        {
-            for (int y = 0; y < webcam.height; y++)
-            {
-                Vector2 position = new Vector2(x, y);
-
-                if (Vector2.Distance(center, position) <= radius)
-                {
-                    colors.Add(webcam.GetPixel(x, y));
-                }
-            }
-        }
-
-        return colors;
+        return webcam.GetPixels((int)start.x, (int)start.y, (int)block.x, (int)block.y);
     }
 
-    private static Color GetAverage(List<Color> pixels)
+    private static Color GetAverage(Color[] pixels)
     {
         Color color = default;
         float total = default;

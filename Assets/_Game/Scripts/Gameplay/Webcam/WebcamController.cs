@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
 
 public class WebcamController : MonoBehaviour
 {
@@ -33,8 +32,8 @@ public class WebcamController : MonoBehaviour
 
         public Vector2 position;
 
-        [Range(0, 0.5f)]
-        public float radius;
+        [Range(0, 1)]
+        public float size;
 
         public void SetName(int index)
         {
@@ -73,7 +72,7 @@ public class WebcamController : MonoBehaviour
 
         foreach (OutfitNode node in data.nodes)
         {
-            Color color = WebcamProcessing.ScanColor(webcam, node.position, node.radius);
+            Color color = WebcamProcessing.ScanColor(webcam, node.position, node.size);
 
             colors.Add(color);
         }
@@ -97,14 +96,14 @@ public class WebcamController : MonoBehaviour
 
         foreach (OutfitData outfit in outfits)
         {
-            Handles.color = outfit.gizmosColor;
+            Gizmos.color = outfit.gizmosColor;
 
             foreach (OutfitNode node in outfit.nodes)
             {
                 Vector3 position = node.position * height;
-                float radius = node.radius * height;
+                float size = node.size * height;
 
-                Handles.DrawWireArc(transform.position + position, Vector3.forward, Vector3.up, 360, radius);
+                Gizmos.DrawWireCube(transform.position + position, Vector2.one * size);
             }
         }
     }

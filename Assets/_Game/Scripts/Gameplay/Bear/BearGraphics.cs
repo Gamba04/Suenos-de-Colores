@@ -82,31 +82,65 @@ public class BearGraphics : MonoBehaviour
 
     private Texture2D GetOutfitTexture(OutfitData outfit, List<Color> colors)
     {
-        Texture2D texture = new Texture2D(outfit.albedo.width, outfit.albedo.height);
+        int width = outfit.albedo.width;
+        int height = outfit.albedo.height;
 
-        int layers = Mathf.Min(outfit.masks.Count, colors.Count);
+        int size = width * height;
+        int layers = Math.Min(outfit.masks.Count, colors.Count);
 
-        for (int l = 0; l < layers; l++)
+        Texture2D texture = new Texture2D(width, height);
+        Color[] pixels = new Color[size];
+
+        float[][] values = GetMaskValues(outfit.masks);
+        Color[] albedos = outfit.albedo.GetPixels();
+
+        for (int y = 0; y < height; y++)
         {
-            Texture2D mask = outfit.masks[l];
-            Color color = colors[l];
-
-            for (int x = 0; x < texture.width; x++)
+            for (int x = 0; x < width; x++)
             {
-                for (int y = 0; y < texture.height; y++)
+                int index = y * width + x;
+
+                Color pixel = default;
+
+                for (int l = 0; l < layers; l++)
                 {
-                    Color pixel = mask.GetPixel(x, y);
+                    float value = values[l][index];
 
-                    if (pixel.r == 0) continue;
+                    if (value == 0) continue;
 
-                    texture.SetPixel(x, y, color);
+                    pixel = Color.Lerp(pixel, colors[l], value);
                 }
+
+                pixel *= albedos[index];
+
+                pixels[index] = pixel;
             }
         }
 
+        texture.SetPixels(pixels);
         texture.Apply();
 
         return texture;
+    }
+
+    private float[][] GetMaskValues(List<Texture2D> masks)
+    {
+        float[][] values = new float[masks.Count][];
+
+        for (int m = 0; m < masks.Count; m++)
+        {
+            Color32[] maskPixels = masks[m].GetPixels32();
+            float[] maskValues = new float[maskPixels.Length];
+
+            for (int i = 0; i < maskPixels.Length; i++)
+            {
+                maskValues[i] = (float)maskPixels[i].r / byte.MaxValue;
+            }
+
+            values[m] = maskValues;
+        }
+
+        return values;
     }
 
     #endregion
