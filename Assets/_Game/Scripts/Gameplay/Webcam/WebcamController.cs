@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class WebcamController : MonoBehaviour
@@ -64,17 +65,21 @@ public class WebcamController : MonoBehaviour
 
     #region Public Methods
 
-    public List<Color> GetOutfitColors(Outfit outfit)
+    public async Task<List<Color>> GetOutfitColors(Outfit outfit)
     {
         List<Color> colors = new List<Color>();
 
         OutfitData data = outfits[(int)outfit];
+
+        await Task.Yield();
 
         foreach (OutfitNode node in data.nodes)
         {
             Color color = WebcamProcessing.ScanColor(webcam, node.position, node.size);
 
             colors.Add(color);
+
+            await Task.Yield();
         }
 
         return colors;

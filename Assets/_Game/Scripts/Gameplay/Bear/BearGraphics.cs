@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class BearGraphics : MonoBehaviour
@@ -62,13 +63,13 @@ public class BearGraphics : MonoBehaviour
         animator.SetTrigger(playID);
     }
 
-    public void SetData(Outfit outfit, List<Color> colors)
+    public async void SetData(Outfit outfit, List<Color> colors)
     {
         OutfitData data = outfits[(int)outfit];
 
         filter.mesh = data.mesh;
 
-        Texture2D texture = GetOutfitTexture(data, colors);
+        Texture2D texture = await GetOutfitTexture(data, colors);
 
         properties.SetTexture(mainTextureID, texture);
         renderer.SetPropertyBlock(properties);
@@ -80,50 +81,57 @@ public class BearGraphics : MonoBehaviour
 
     #region Other
 
-    private Texture2D GetOutfitTexture(OutfitData outfit, List<Color> colors)
+    private async Task<Texture2D> GetOutfitTexture(OutfitData outfit, List<Color> colors)
     {
+        // Get values
         int width = outfit.albedo.width;
         int height = outfit.albedo.height;
 
         int size = width * height;
         int layers = Math.Min(outfit.masks.Count, colors.Count);
 
+        // Get containers
         Texture2D texture = new Texture2D(width, height);
         Color[] pixels = new Color[size];
 
-        float[][] values = GetMaskValues(outfit.masks);
+        float[][] values = await GetMaskValues(outfit.masks);
         Color[] albedos = outfit.albedo.GetPixels();
 
-        for (int y = 0; y < height; y++)
+        // Generate texture
+        await Task.Run(() =>
         {
-            for (int x = 0; x < width; x++)
+            for (int y = 0; y < height; y++)
             {
-                int index = y * width + x;
-
-                Color pixel = default;
-
-                for (int l = 0; l < layers; l++)
+                for (int x = 0; x < width; x++)
                 {
-                    float value = values[l][index];
+                    int index = y * width + x;
 
-                    if (value == 0) continue;
+                    Color pixel = default;
 
-                    pixel = Color.Lerp(pixel, colors[l], value);
+                    for (int l = 0; l < layers; l++)
+                    {
+                        float value = values[l][index];
+
+                        if (value == 0) continue;
+
+                        pixel = Color.Lerp(pixel, colors[l], value);
+                    }
+
+                    pixel *= albedos[index];
+
+                    pixels[index] = pixel;
                 }
-
-                pixel *= albedos[index];
-
-                pixels[index] = pixel;
             }
-        }
+        });
 
+        // Apply texture
         texture.SetPixels(pixels);
         texture.Apply();
 
         return texture;
     }
 
-    private float[][] GetMaskValues(List<Texture2D> masks)
+    private async Task<float[][]> GetMaskValues(List<Texture2D> masks)
     {
         float[][] values = new float[masks.Count][];
 
@@ -138,6 +146,8 @@ public class BearGraphics : MonoBehaviour
             }
 
             values[m] = maskValues;
+
+            await Task.Yield();
         }
 
         return values;

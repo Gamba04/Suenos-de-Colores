@@ -34,11 +34,11 @@ public class GameplayController : MonoBehaviour
 
     #region Gameplay
 
-    private void OnInput(Outfit outfit)
+    private async void OnInput(Outfit outfit)
     {
         if (!IsAvailable) return;
 
-         List<Color> colors = webcamController.GetOutfitColors(outfit);
+         List<Color> colors = await webcamController.GetOutfitColors(outfit);
 
         bearController.Play(outfit, colors);
     }
