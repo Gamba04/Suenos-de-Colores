@@ -774,6 +774,8 @@ GameObject:
   m_Component:
   - component: {fileID: 519420032}
   - component: {fileID: 519420031}
+  - component: {fileID: 519420035}
+  - component: {fileID: 519420030}
   - component: {fileID: 519420034}
   - component: {fileID: 519420029}
   - component: {fileID: 519420033}
@@ -792,6 +794,25 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_Enabled: 1
+--- !u!95 &519420030
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: bec2b08625286cc448987146fe803a3f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -924,6 +945,21 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   camera: {fileID: 519420031}
+--- !u!114 &519420035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85a6019f57d367b49a801e21bb94be34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  camera: {fileID: 519420031}
+  animator: {fileID: 519420030}
+  inactivityCooldown: 10
 --- !u!1 &634222679
 GameObject:
   m_ObjectHideFlags: 0
@@ -1741,6 +1777,7 @@ MonoBehaviour:
   input: {fileID: 2144003973}
   webcamController: {fileID: 238516489}
   bearController: {fileID: 2082121713}
+  inactivityController: {fileID: 519420035}
 --- !u!114 &2144003973
 MonoBehaviour:
   m_ObjectHideFlags: 0

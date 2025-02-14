@@ -10,6 +10,8 @@ public class GameplayController : MonoBehaviour
     private WebcamController webcamController;
     [SerializeField]
     private BearController bearController;
+    [SerializeField]
+    private InactivityController inactivityController;
 
     public bool IsAvailable => webcamController.IsAvailable && bearController.IsAvailable;
 
@@ -21,11 +23,14 @@ public class GameplayController : MonoBehaviour
 
         webcamController.Init();
         bearController.Init();
+        inactivityController.Init();
     }
 
     private void InitEvents()
     {
         input.onInput += OnInput;
+
+        bearController.onFinishAnim += OnFinishAnim;
     }
 
     #endregion
@@ -41,6 +46,12 @@ public class GameplayController : MonoBehaviour
          List<Color> colors = await webcamController.GetOutfitColors(outfit);
 
         bearController.Play(outfit, colors);
+        inactivityController.OnStartInteraction();
+    }
+
+    private void OnFinishAnim()
+    {
+        inactivityController.OnFinishInteraction();
     }
 
     #endregion

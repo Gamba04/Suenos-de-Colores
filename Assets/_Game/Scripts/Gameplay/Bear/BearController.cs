@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,6 +17,8 @@ public class BearController : MonoBehaviour
     private bool isPlaying;
 
     public bool IsAvailable => !isPlaying;
+
+    public event Action onFinishAnim;
 
     #region Init
 
@@ -44,6 +47,8 @@ public class BearController : MonoBehaviour
     public void AnimFinish()
     {
         isPlaying = false;
+
+        onFinishAnim?.Invoke();
     }
 
     #endregion
@@ -54,7 +59,7 @@ public class BearController : MonoBehaviour
 
     private int GetRandomAnimation()
     {
-        return Random.Range(0, (int)animationsAmount);
+        return UnityEngine.Random.Range(0, (int)animationsAmount);
     }
 
     #endregion
