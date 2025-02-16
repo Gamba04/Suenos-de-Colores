@@ -57,12 +57,6 @@ public class BearGraphics : MonoBehaviour
 
     #region Public Methods
 
-    public void Play(int animation)
-    {
-        animator.SetInteger(animationID, animation);
-        animator.SetTrigger(playID);
-    }
-
     public async void SetData(Outfit outfit, List<Color> colors)
     {
         OutfitData data = outfits[(int)outfit];
@@ -73,6 +67,12 @@ public class BearGraphics : MonoBehaviour
 
         properties.SetTexture(mainTextureID, texture);
         renderer.SetPropertyBlock(properties);
+    }
+
+    public void Play(int animation)
+    {
+        animator.SetInteger(animationID, animation);
+        animator.SetTrigger(playID);
     }
 
     #endregion

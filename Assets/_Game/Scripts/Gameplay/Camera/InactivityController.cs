@@ -1,25 +1,26 @@
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class InactivityController : MonoBehaviour
 {
     [Header("Components")]
     [SerializeField]
-    private new Camera camera;
-    [SerializeField]
-    private Animator animator;
+    private CameraController cameraController;
 
     [Header("Settings")]
     [SerializeField]
     private float inactivityCooldown = 10;
 
-    private readonly int inactiveID = Animator.StringToHash("Inactive");
-
     private readonly Timer.CancelRequest inactivityCancel = new Timer.CancelRequest();
+
+    private bool isInactive;
 
     #region Init
 
     public void Init()
     {
+        cameraController.Init();
+
         StartCooldown();
     }
 
@@ -29,9 +30,9 @@ public class InactivityController : MonoBehaviour
 
     #region Public Methods
 
-    public void OnStartInteraction()
+    public async Task OnStartInteraction()
     {
-        StopInactivity();
+        await StopInactivity();
     }
 
     public void OnFinishInteraction()
@@ -52,14 +53,23 @@ public class InactivityController : MonoBehaviour
 
     private void StartInactivity()
     {
-        animator.SetBool(inactiveID, true);
+        isInactive = true;
+
+        cameraController.Play();
     }
 
-    private void StopInactivity()
+    private async Task StopInactivity()
     {
-        inactivityCancel.Cancel();
+        if (isInactive)
+        {
+            isInactive = false;
 
-        animator.SetBool(inactiveID, false);
+            await cameraController.Stop();
+        }
+        else
+        {
+            inactivityCancel.Cancel();
+        }
     }
 
     #endregion

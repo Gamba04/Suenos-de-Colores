@@ -43,10 +43,11 @@ public class GameplayController : MonoBehaviour
     {
         if (!IsAvailable) return;
 
-         List<Color> colors = await webcamController.GetOutfitColors(outfit);
+        await inactivityController.OnStartInteraction();
+
+        List<Color> colors = await webcamController.GetOutfitColors(outfit);
 
         bearController.Play(outfit, colors);
-        inactivityController.OnStartInteraction();
     }
 
     private void OnFinishAnim()
