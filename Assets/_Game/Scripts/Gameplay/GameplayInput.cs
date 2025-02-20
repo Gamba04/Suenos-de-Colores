@@ -4,9 +4,9 @@ using UnityEngine;
 
 public enum Outfit
 {
-    Look_1,
-    Look_2,
-    Look_3,
+    Outfit_1,
+    Outfit_2,
+    Outfit_3,
 }
 
 public class GameplayInput : MonoBehaviour

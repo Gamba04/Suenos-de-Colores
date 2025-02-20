@@ -29,17 +29,13 @@ public class BearGraphics : MonoBehaviour
     [SerializeField]
     private Animator animator;
     [SerializeField]
-    private MeshFilter filter;
-    [SerializeField]
-    private new Renderer renderer;
+    private new SkinnedMeshRenderer renderer;
 
     [Header("Settings")]
     [SerializeField]
     private List<OutfitData> outfits;
 
     private readonly int playID = Animator.StringToHash("Play");
-    private readonly int animationID = Animator.StringToHash("Animation");
-
     private readonly int mainTextureID = Shader.PropertyToID("_MainTex");
 
     private MaterialPropertyBlock properties;
@@ -61,7 +57,7 @@ public class BearGraphics : MonoBehaviour
     {
         OutfitData data = outfits[(int)outfit];
 
-        filter.mesh = data.mesh;
+        renderer.sharedMesh = data.mesh;
 
         Texture2D texture = await GetOutfitTexture(data, colors);
 
@@ -69,9 +65,8 @@ public class BearGraphics : MonoBehaviour
         renderer.SetPropertyBlock(properties);
     }
 
-    public void Play(int animation)
+    public void Play()
     {
-        animator.SetInteger(animationID, animation);
         animator.SetTrigger(playID);
     }
 

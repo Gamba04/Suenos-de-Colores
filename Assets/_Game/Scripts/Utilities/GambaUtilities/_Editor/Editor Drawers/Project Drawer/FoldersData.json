@@ -26,6 +26,10 @@
             "color" : "#75AEFF"
         },
         {
+            "path" : "Assets/_Game/Graphics/Models",
+            "color" : "#C0C0C0"
+        },
+        {
             "path" : "Assets/_Game/Graphics/Sprites",
             "color" : "#75E799"
         },

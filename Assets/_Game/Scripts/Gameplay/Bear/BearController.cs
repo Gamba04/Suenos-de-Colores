@@ -8,10 +8,6 @@ public class BearController : MonoBehaviour
     [SerializeField]
     private BearGraphics graphics;
 
-    [Header("Settings")]
-    [SerializeField]
-    private uint animationsAmount = 1;
-
     [Header("Info")]
     [ReadOnly, SerializeField]
     private bool isPlaying;
@@ -38,10 +34,7 @@ public class BearController : MonoBehaviour
         isPlaying = true;
 
         graphics.SetData(outfit, colors);
-
-        int animation = GetRandomAnimation();
-
-        graphics.Play(animation);
+        graphics.Play();
     }
 
     public void AnimFinish()
@@ -49,17 +42,6 @@ public class BearController : MonoBehaviour
         isPlaying = false;
 
         onFinishAnim?.Invoke();
-    }
-
-    #endregion
-
-    // ----------------------------------------------------------------------------------------------------------------------------
-
-    #region Other
-
-    private int GetRandomAnimation()
-    {
-        return UnityEngine.Random.Range(0, (int)animationsAmount);
     }
 
     #endregion
