@@ -16,6 +16,7 @@ public class BearGraphics : MonoBehaviour
         public Mesh mesh;
         public List<Texture2D> masks;
         public Texture2D albedo;
+        public Texture2D normal;
 
         public void SetName(Outfit outfit)
         {
@@ -37,6 +38,7 @@ public class BearGraphics : MonoBehaviour
 
     private readonly int playID = Animator.StringToHash("Play");
     private readonly int mainTextureID = Shader.PropertyToID("_MainTex");
+    private readonly int normalMapID = Shader.PropertyToID("_BumpMap");
 
     private MaterialPropertyBlock properties;
 
@@ -62,6 +64,8 @@ public class BearGraphics : MonoBehaviour
         Texture2D texture = await GetOutfitTexture(data, colors);
 
         properties.SetTexture(mainTextureID, texture);
+        properties.SetTexture(normalMapID, data.normal);
+
         renderer.SetPropertyBlock(properties);
     }
 
@@ -78,9 +82,12 @@ public class BearGraphics : MonoBehaviour
 
     private async Task<Texture2D> GetOutfitTexture(OutfitData outfit, List<Color> colors)
     {
+        bool hasAlbedo = outfit.albedo != null;
+        Texture2D referenceTexture = hasAlbedo ? outfit.albedo : outfit.masks[0];
+
         // Get values
-        int width = outfit.albedo.width;
-        int height = outfit.albedo.height;
+        int width = referenceTexture.width;
+        int height = referenceTexture.height;
 
         int size = width * height;
         int layers = Math.Min(outfit.masks.Count, colors.Count);
@@ -90,7 +97,7 @@ public class BearGraphics : MonoBehaviour
         Color[] pixels = new Color[size];
 
         float[][] values = await GetMaskValues(outfit.masks);
-        Color[] albedos = outfit.albedo.GetPixels();
+        Color[] albedos = hasAlbedo ? outfit.albedo.GetPixels() : null;
 
         // Generate texture
         await Task.Run(() =>
@@ -112,7 +119,7 @@ public class BearGraphics : MonoBehaviour
                         pixel = Color.Lerp(pixel, colors[l], value);
                     }
 
-                    pixel *= albedos[index];
+                    if (hasAlbedo) pixel *= albedos[index];
 
                     pixels[index] = pixel;
                 }
