@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class GameplayController : MonoBehaviour
@@ -13,7 +14,11 @@ public class GameplayController : MonoBehaviour
     [SerializeField]
     private InactivityController inactivityController;
 
-    public bool IsAvailable => webcamController.IsAvailable && bearController.IsAvailable;
+    [Header("Info")]
+    [ReadOnly, SerializeField]
+    private bool isPlaying;
+
+    public bool IsAvailable => !isPlaying && webcamController.IsAvailable;
 
     #region Init
 
@@ -30,7 +35,7 @@ public class GameplayController : MonoBehaviour
     {
         input.onInput += OnInput;
 
-        bearController.onFinishAnim += OnFinishAnim;
+        bearController.onFinishPlaying += OnFinishPlaying;
     }
 
     #endregion
@@ -43,16 +48,26 @@ public class GameplayController : MonoBehaviour
     {
         if (!IsAvailable) return;
 
-        await inactivityController.OnStartInteraction();
+        isPlaying = true;
+
+        await Task.Yield();
+
+        Task stopInactivity = inactivityController.StopInactivity();
 
         List<Color> colors = await webcamController.GetOutfitColors(outfit);
 
-        bearController.Play(outfit, colors);
+        await bearController.SetData(outfit, colors);
+
+        await stopInactivity;
+
+        bearController.Play();
     }
 
-    private void OnFinishAnim()
+    private void OnFinishPlaying()
     {
-        inactivityController.OnFinishInteraction();
+        inactivityController.StartCooldown();
+
+        isPlaying = false;
     }
 
     #endregion

@@ -30,35 +30,19 @@ public class InactivityController : MonoBehaviour
 
     #region Public Methods
 
-    public async Task OnStartInteraction()
-    {
-        await StopInactivity();
-    }
-
-    public void OnFinishInteraction()
-    {
-        StartCooldown();
-    }
-
-    #endregion
-
-    // ----------------------------------------------------------------------------------------------------------------------------
-
-    #region Inactivity
-
-    private void StartCooldown()
+    public void StartCooldown()
     {
         Timer.CallOnDelay(StartInactivity, inactivityCooldown, inactivityCancel, "Inactivity cooldown");
+
+        void StartInactivity()
+        {
+            isInactive = true;
+
+            cameraController.Play();
+        }
     }
 
-    private void StartInactivity()
-    {
-        isInactive = true;
-
-        cameraController.Play();
-    }
-
-    private async Task StopInactivity()
+    public async Task StopInactivity()
     {
         if (isInactive)
         {

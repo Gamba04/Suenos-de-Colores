@@ -55,7 +55,7 @@ public class BearGraphics : MonoBehaviour
 
     #region Public Methods
 
-    public async void SetData(Outfit outfit, List<Color> colors)
+    public async Task SetData(Outfit outfit, List<Color> colors)
     {
         OutfitData data = outfits[(int)outfit];
 
@@ -136,6 +136,8 @@ public class BearGraphics : MonoBehaviour
     private async Task<float[][]> GetMaskValues(List<Texture2D> masks)
     {
         float[][] values = new float[masks.Count][];
+
+        await Task.Yield();
 
         for (int m = 0; m < masks.Count; m++)
         {

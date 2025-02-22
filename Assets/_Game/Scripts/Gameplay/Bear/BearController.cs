@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class BearController : MonoBehaviour
@@ -8,13 +9,7 @@ public class BearController : MonoBehaviour
     [SerializeField]
     private BearGraphics graphics;
 
-    [Header("Info")]
-    [ReadOnly, SerializeField]
-    private bool isPlaying;
-
-    public bool IsAvailable => !isPlaying;
-
-    public event Action onFinishAnim;
+    public event Action onFinishPlaying;
 
     #region Init
 
@@ -29,20 +24,11 @@ public class BearController : MonoBehaviour
 
     #region Public Methods
 
-    public void Play(Outfit outfit, List<Color> colors)
-    {
-        isPlaying = true;
+    public Task SetData(Outfit outfit, List<Color> colors) => graphics.SetData(outfit, colors);
 
-        graphics.SetData(outfit, colors);
-        graphics.Play();
-    }
+    public void Play() => graphics.Play();
 
-    public void AnimFinish()
-    {
-        isPlaying = false;
-
-        onFinishAnim?.Invoke();
-    }
+    public void AnimFinish() => onFinishPlaying?.Invoke();
 
     #endregion
 

@@ -4,16 +4,16 @@ public static class WebcamProcessing
 {
     private const float brightnessBoost = 1.1f;
 
-    public static Color ScanColor(WebCamTexture webcam, Vector2 position, float size)
+    public static Color ScanColor(Texture2D texture, Vector2 position, float size)
     {
         // Process values
-        position *= webcam.height;
-        position += new Vector2(webcam.width, webcam.height) / 2;
+        position *= texture.height;
+        position += new Vector2(texture.width, texture.height) / 2;
 
-        size *= webcam.height;
+        size *= texture.height;
 
         // Get color
-        Color[] pixels = GetPixels(webcam, position, size);
+        Color[] pixels = GetPixels(texture, position, size);
         Color color = GetAverage(pixels);
 
         // Process color
@@ -23,12 +23,12 @@ public static class WebcamProcessing
         return color;
     }
 
-    private static Color[] GetPixels(WebCamTexture webcam, Vector2 center, float size)
+    private static Color[] GetPixels(Texture2D texture, Vector2 center, float size)
     {
         Vector2 block = Vector2.one * size;
         Vector2 start = center - block / 2;
 
-        return webcam.GetPixels((int)start.x, (int)start.y, (int)block.x, (int)block.y);
+        return texture.GetPixels((int)start.x, (int)start.y, (int)block.x, (int)block.y);
     }
 
     private static Color GetAverage(Color[] pixels)
@@ -39,6 +39,7 @@ public static class WebcamProcessing
         foreach (Color pixel in pixels)
         {
             float weight = Mathf.Max(pixel.r, pixel.g, pixel.b);
+            weight = 1;
 
             color += pixel * weight;
             total += weight;

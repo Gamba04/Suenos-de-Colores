@@ -70,12 +70,13 @@ public class WebcamController : MonoBehaviour
         List<Color> colors = new List<Color>();
 
         OutfitData data = outfits[(int)outfit];
+        Texture2D picture = TakePicture();
 
         await Task.Yield();
 
         foreach (OutfitNode node in data.nodes)
         {
-            Color color = WebcamProcessing.ScanColor(webcam, node.position, node.size);
+            Color color = WebcamProcessing.ScanColor(picture, node.position, node.size);
 
             colors.Add(color);
 
@@ -83,6 +84,23 @@ public class WebcamController : MonoBehaviour
         }
 
         return colors;
+    }
+
+    #endregion
+
+    // ----------------------------------------------------------------------------------------------------------------------------
+
+    #region Other
+
+    private Texture2D TakePicture()
+    {
+        Texture2D texture = new Texture2D(webcam.width, webcam.height, TextureFormat.RGBA32, false);
+
+        texture.SetPixels32(webcam.GetPixels32());
+
+        texture.Apply();
+
+        return texture;
     }
 
     #endregion
