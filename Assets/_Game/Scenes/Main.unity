@@ -355,151 +355,13 @@ MonoBehaviour:
   outfits:
   - name: Outfit_1
     gizmosColor: {r: 0, g: 0.8973751, b: 1, a: 1}
-    nodes:
-    - name: Node 0
-      position: {x: -0.539, y: 0.385}
-      size: 0.077
-    - name: Node 1
-      position: {x: -0.385, y: 0.385}
-      size: 0.077
-    - name: Node 2
-      position: {x: -0.231, y: 0.385}
-      size: 0.077
-    - name: Node 3
-      position: {x: -0.077, y: 0.385}
-      size: 0.077
-    - name: Node 4
-      position: {x: 0.077, y: 0.385}
-      size: 0.077
-    - name: Node 5
-      position: {x: 0.231, y: 0.385}
-      size: 0.077
-    - name: Node 6
-      position: {x: 0.385, y: 0.385}
-      size: 0.077
-    - name: Node 7
-      position: {x: 0.539, y: 0.385}
-      size: 0.077
-    - name: Node 8
-      position: {x: -0.539, y: 0.231}
-      size: 0.077
-    - name: Node 9
-      position: {x: -0.385, y: 0.231}
-      size: 0.077
-    - name: Node 10
-      position: {x: -0.231, y: 0.231}
-      size: 0.077
-    - name: Node 11
-      position: {x: -0.077, y: 0.231}
-      size: 0.077
-    - name: Node 12
-      position: {x: 0.077, y: 0.231}
-      size: 0.077
-    - name: Node 13
-      position: {x: 0.231, y: 0.231}
-      size: 0.077
-    - name: Node 14
-      position: {x: 0.385, y: 0.231}
-      size: 0.077
-    - name: Node 15
-      position: {x: 0.539, y: 0.231}
-      size: 0.077
-    - name: Node 16
-      position: {x: -0.539, y: 0.077}
-      size: 0.077
-    - name: Node 17
-      position: {x: -0.385, y: 0.077}
-      size: 0.077
-    - name: Node 18
-      position: {x: -0.231, y: 0.077}
-      size: 0.077
-    - name: Node 19
-      position: {x: -0.077, y: 0.077}
-      size: 0.077
-    - name: Node 20
-      position: {x: 0.077, y: 0.077}
-      size: 0.077
-    - name: Node 21
-      position: {x: 0.231, y: 0.077}
-      size: 0.077
-    - name: Node 22
-      position: {x: 0.385, y: 0.077}
-      size: 0.077
-    - name: Node 23
-      position: {x: 0.539, y: 0.077}
-      size: 0.077
-    - name: Node 24
-      position: {x: -0.539, y: -0.077}
-      size: 0.077
-    - name: Node 25
-      position: {x: -0.385, y: -0.077}
-      size: 0.077
-    - name: Node 26
-      position: {x: -0.231, y: -0.077}
-      size: 0.077
-    - name: Node 27
-      position: {x: -0.077, y: -0.077}
-      size: 0.077
-    - name: Node 28
-      position: {x: 0.077, y: -0.077}
-      size: 0.077
-    - name: Node 29
-      position: {x: 0.231, y: -0.077}
-      size: 0.077
-    - name: Node 30
-      position: {x: 0.385, y: -0.077}
-      size: 0.077
-    - name: Node 31
-      position: {x: 0.539, y: -0.077}
-      size: 0.077
-    - name: Node 32
-      position: {x: -0.539, y: -0.231}
-      size: 0.077
-    - name: Node 33
-      position: {x: -0.385, y: -0.231}
-      size: 0.077
-    - name: Node 34
-      position: {x: -0.231, y: -0.231}
-      size: 0.077
-    - name: Node 35
-      position: {x: -0.077, y: -0.231}
-      size: 0.077
-    - name: Node 36
-      position: {x: 0.077, y: -0.231}
-      size: 0.077
-    - name: Node 37
-      position: {x: 0.231, y: -0.231}
-      size: 0.077
-    - name: Node 38
-      position: {x: 0.385, y: -0.231}
-      size: 0.077
-    - name: Node 39
-      position: {x: 0.539, y: -0.231}
-      size: 0.077
-    - name: Node 40
-      position: {x: -0.539, y: -0.385}
-      size: 0.077
-    - name: Node 41
-      position: {x: -0.385, y: -0.385}
-      size: 0.077
-    - name: Node 42
-      position: {x: -0.231, y: -0.385}
-      size: 0.077
-    - name: Node 43
-      position: {x: -0.077, y: -0.385}
-      size: 0.077
-    - name: Node 44
-      position: {x: 0.077, y: -0.385}
-      size: 0.077
-    - name: Node 45
-      position: {x: 0.231, y: -0.385}
-      size: 0.077
+    data: {fileID: 11400000, guid: f431793bde7f13743973ff797b9fc9d6, type: 2}
   - name: Outfit_2
     gizmosColor: {r: 1, g: 1, b: 1, a: 1}
-    nodes: []
+    data: {fileID: 0}
   - name: Outfit_3
     gizmosColor: {r: 1, g: 1, b: 1, a: 1}
-    nodes: []
+    data: {fileID: 0}
 --- !u!1 &260287925
 GameObject:
   m_ObjectHideFlags: 0
@@ -723,7 +585,6 @@ MonoBehaviour:
     - {fileID: 2800000, guid: eab5781e37c6f744d999e6e4972d195d, type: 3}
     albedo: {fileID: 0}
     normal: {fileID: 2800000, guid: 835fff0fd41e71345bb6d4de8d16fbe1, type: 3}
-  debugColors: []
 --- !u!4 &406551550
 Transform:
   m_ObjectHideFlags: 0
@@ -1105,7 +966,7 @@ MonoBehaviour:
     aspect: {x: 21, y: 9}
     size: 5
     ratio: 2.3333333
-  currentRatio: 1.7777778
+  currentRatio: 1.7759434
   tangents: 0
   curve:
     serializedVersion: 2
@@ -1751,7 +1612,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   graphics: {fileID: 406551549}
-  isPlaying: 0
 --- !u!4 &2082121714
 Transform:
   m_ObjectHideFlags: 0
@@ -1844,6 +1704,7 @@ MonoBehaviour:
   webcamController: {fileID: 238516489}
   bearController: {fileID: 2082121713}
   inactivityController: {fileID: 519420035}
+  isPlaying: 0
 --- !u!114 &2144003973
 MonoBehaviour:
   m_ObjectHideFlags: 0

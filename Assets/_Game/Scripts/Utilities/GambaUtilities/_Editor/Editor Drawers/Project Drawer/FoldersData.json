@@ -6,6 +6,10 @@
             "color" : "#606060"
         },
         {
+            "path" : "Assets/_Game/_Setup",
+            "color" : "#606060"
+        },
+        {
             "path" : "Assets/_Game/Audio",
             "color" : "#E84A4A"
         },

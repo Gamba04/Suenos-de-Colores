@@ -14,31 +14,13 @@ public class WebcamController : MonoBehaviour
         [SerializeField, HideInInspector] private string name;
 
         public Color gizmosColor = Color.white;
-
-        [Space]
-        public List<OutfitNode> nodes = new List<OutfitNode>();
+        public WebcamDataScrObj data;
 
         public void SetName(Outfit outfit)
         {
-            name = outfit.ToString();
+            string data = this.data != null ? this.data.name : "None";
 
-            nodes.ForEach((node, index) => node.SetName(index));
-        }
-    }
-
-    [Serializable]
-    private class OutfitNode
-    {
-        [SerializeField, HideInInspector] private string name;
-
-        public Vector2 position;
-
-        [Range(0, 1)]
-        public float size;
-
-        public void SetName(int index)
-        {
-            name = $"Node {index}";
+            name = $"{outfit} ({data})";
         }
     }
 
@@ -74,7 +56,7 @@ public class WebcamController : MonoBehaviour
 
         await Task.Yield();
 
-        foreach (OutfitNode node in data.nodes)
+        foreach (WebcamDataScrObj.OutfitNode node in data.data.Nodes)
         {
             Color color = WebcamProcessing.ScanColor(picture, node.position, node.size);
 
@@ -119,9 +101,11 @@ public class WebcamController : MonoBehaviour
 
         foreach (OutfitData outfit in outfits)
         {
+            if (outfit.data == null) continue;
+
             Gizmos.color = outfit.gizmosColor;
 
-            foreach (OutfitNode node in outfit.nodes)
+            foreach (WebcamDataScrObj.OutfitNode node in outfit.data.Nodes)
             {
                 Vector3 position = node.position * height;
                 float size = node.size * height;
