@@ -46,7 +46,30 @@ public class AnimationPathReplace : EditorWindow
     {
         serializedObject = new SerializedObject(this);
 
-        minSize = new Vector2(350, minSize.y);
+        minSize = new Vector2(350, GetHeight());
+    }
+
+    private float GetHeight()
+    {
+        const float inspectorMargin = 4;
+        const float propertyHeight = 18;
+        const float propertySeparation = 2;
+        const float spaceHeight = 6;
+        const float buttonHeight = 25;
+
+        const int margins = 3;
+        const int properties = 4;
+        const int spaces = 1;
+        const int buttons = 1;
+
+        float height = default;
+
+        height += inspectorMargin * margins;
+        height += propertyHeight * properties + propertySeparation * Mathf.Max(0, properties - 1);
+        height += spaceHeight * spaces;
+        height += buttonHeight * buttons;
+
+        return height;
     }
 
     #endregion
