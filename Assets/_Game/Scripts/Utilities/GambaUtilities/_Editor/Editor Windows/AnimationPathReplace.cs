@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEditor;
 
@@ -8,10 +9,24 @@ using UnityEditor;
 
 public class AnimationPathReplace : EditorWindow
 {
+
+    #region Custom Data
+
+    private enum MatchType
+    {
+        Any,
+        StartsWith,
+        EndsWith
+    }
+
+    #endregion
+
     [SerializeField]
     private AnimationClip animation;
     [SerializeField]
-    private string find;
+    private MatchType matchType;
+    [SerializeField]
+    private string search;
     [SerializeField]
     private string replace;
 
@@ -55,7 +70,8 @@ public class AnimationPathReplace : EditorWindow
         EditorGUIUtility.labelWidth = EditorGUIUtility.currentViewWidth * 0.4f;
 
         DrawProperty(nameof(animation));
-        DrawProperty(nameof(find));
+        DrawProperty(nameof(matchType));
+        DrawProperty(nameof(search));
         DrawProperty(nameof(replace));
 
         DrawSwapButton();
@@ -113,7 +129,7 @@ public class AnimationPathReplace : EditorWindow
 
     private void Replace()
     {
-        if (animation == null || find == "") return;
+        if (animation == null || search == "") return;
 
         Dictionary<EditorCurveBinding, AnimationCurve> curves = new Dictionary<EditorCurveBinding, AnimationCurve>();
         List<EditorCurveBinding> bindings = AnimationUtility.GetCurveBindings(animation).ToList();
@@ -129,7 +145,7 @@ public class AnimationPathReplace : EditorWindow
             AnimationCurve curve = AnimationUtility.GetEditorCurve(animation, binding);
 
             EditorCurveBinding result = binding;
-            result.path = binding.path.Replace(find, replace);
+            result.path = Replace(binding.path);
 
             if (result == binding || bindings.Contains(result)) return;
 
@@ -138,11 +154,44 @@ public class AnimationPathReplace : EditorWindow
         }
     }
 
+    private string Replace(string path)
+    {
+        List<char> chars = path.ToList();
+
+        List<int> indices = matchType switch
+        {
+            MatchType.Any => Regex.Matches(path, search).Cast<Match>().Select(match => match.Index).ToList(),
+            MatchType.StartsWith => GetIndexIf(path.StartsWith(search), 0),
+            MatchType.EndsWith => GetIndexIf(path.EndsWith(search), path.Length - search.Length),
+
+            _ => throw new InvalidCastException($"The enum value {(int)matchType} is not a valid {nameof(MatchType)}")
+        };
+
+        for (int i = indices.Count - 1; i > -1; i--)
+        {
+            int index = indices[i];
+
+            chars.RemoveRange(index, search.Length);
+            chars.InsertRange(index, replace);
+        }
+
+        static List<int> GetIndexIf(bool condition, int index)
+        {
+            List<int> indices = new List<int>();
+
+            if (condition) indices.Add(index);
+
+            return indices;
+        }
+
+        return string.Concat(chars);
+    }
+
     private void Swap()
     {
-        string oldFind = find;
+        string oldFind = search;
 
-        find = replace;
+        search = replace;
         replace = oldFind;
     }
 
