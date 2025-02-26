@@ -13,6 +13,8 @@ public class GameplayController : MonoBehaviour
     private BearController bearController;
     [SerializeField]
     private InactivityController inactivityController;
+    [SerializeField]
+    private WalkingBearsController walkingBearsController;
 
     [Header("Info")]
     [ReadOnly, SerializeField]
@@ -29,6 +31,7 @@ public class GameplayController : MonoBehaviour
         webcamController.Init();
         bearController.Init();
         inactivityController.Init();
+        walkingBearsController.Init();
     }
 
     private void InitEvents()
@@ -66,6 +69,7 @@ public class GameplayController : MonoBehaviour
     private void OnFinishPlaying()
     {
         inactivityController.StartCooldown();
+        walkingBearsController.SpawnBear(bearController.Data);
 
         isPlaying = false;
     }

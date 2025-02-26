@@ -42,6 +42,8 @@ public class BearGraphics : MonoBehaviour
 
     private MaterialPropertyBlock properties;
 
+    public SkinnedMeshRenderer Renderer => renderer;
+
     #region Init
 
     public void Init()

@@ -11,6 +11,8 @@ public class BearController : MonoBehaviour
 
     public event Action onFinishPlaying;
 
+    public SkinnedMeshRenderer Data => graphics.Renderer;
+
     #region Init
 
     public void Init()
