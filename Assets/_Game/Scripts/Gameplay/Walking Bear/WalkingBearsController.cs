@@ -51,7 +51,7 @@ public class WalkingBearsController : MonoBehaviour
             await bear.Despawn();
         }
 
-        bear.Spawn(spawnPoint);
+        bear.Spawn(spawnPoint, data);
     }
 
     #endregion

@@ -5,11 +5,15 @@ public class WalkingBear : MonoBehaviour
 {
     [Header("Components")]
     [SerializeField]
+    private new SkinnedMeshRenderer renderer;
+    [SerializeField]
     private ParticleSystem smoke;
 
     [Header("Settings")]
     [SerializeField]
     private float smokeDelay = 0.5f;
+
+    private MaterialPropertyBlock properties;
 
     public bool IsActive
     {
@@ -22,6 +26,8 @@ public class WalkingBear : MonoBehaviour
     public void Init()
     {
         IsActive = false;
+
+        properties = new MaterialPropertyBlock();
     }
 
     #endregion
@@ -30,11 +36,16 @@ public class WalkingBear : MonoBehaviour
 
     #region Public Methods
 
-    public void Spawn(Vector3 position)
+    public void Spawn(Vector3 position, SkinnedMeshRenderer data)
     {
         IsActive = true;
 
         transform.position = position;
+
+        renderer.sharedMesh = data.sharedMesh;
+
+        data.GetPropertyBlock(properties);
+        renderer.SetPropertyBlock(properties);
 
         // Start walking
     }

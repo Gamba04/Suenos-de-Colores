@@ -1,35 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3353511095833649435
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4038590627972754858}
-  m_Layer: 0
-  m_Name: Bear
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4038590627972754858
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3353511095833649435}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 3500611579364703616}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4697526161089797523
 GameObject:
   m_ObjectHideFlags: 0
@@ -74,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c6da720911910e4f9f6b2ab051ebb1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  renderer: {fileID: 1145307564104912448}
   smoke: {fileID: 3682318132593212781}
   smokeDelay: 0.5
 --- !u!1 &7514756352254551142
@@ -103,7 +74,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4038590627972754858}
+  - {fileID: 6026320319658218020}
   - {fileID: 3746348620043770985}
   m_Father: {fileID: 7309777455389709304}
   m_RootOrder: 0
@@ -4970,3 +4941,74 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!1001 &937167894366102656
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 3500611579364703616}
+    m_Modifications:
+    - target: {fileID: 6191156421020986398, guid: 12b5da116e6e2894b995a771d2d3f44f,
+        type: 3}
+      propertyPath: m_Name
+      value: Bear
+      objectReference: {fileID: 0}
+    - target: {fileID: 6818651436996753060, guid: 12b5da116e6e2894b995a771d2d3f44f,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6818651436996753060, guid: 12b5da116e6e2894b995a771d2d3f44f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6818651436996753060, guid: 12b5da116e6e2894b995a771d2d3f44f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6818651436996753060, guid: 12b5da116e6e2894b995a771d2d3f44f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 12b5da116e6e2894b995a771d2d3f44f, type: 3}
+--- !u!1 &6406962876808038558 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6191156421020986398, guid: 12b5da116e6e2894b995a771d2d3f44f,
+    type: 3}
+  m_PrefabInstance: {fileID: 937167894366102656}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &6026320319658218020 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6818651436996753060, guid: 12b5da116e6e2894b995a771d2d3f44f,
+    type: 3}
+  m_PrefabInstance: {fileID: 937167894366102656}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &1145307564104912448 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 208729180125080256, guid: 12b5da116e6e2894b995a771d2d3f44f,
+    type: 3}
+  m_PrefabInstance: {fileID: 937167894366102656}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &7166939695258542999
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6406962876808038558}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d8335393e4151354783bc0e9ca519fa7, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
