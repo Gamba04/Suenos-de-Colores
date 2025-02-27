@@ -44,9 +44,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c6da720911910e4f9f6b2ab051ebb1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 7166939695258542999}
   renderer: {fileID: 1145307564104912448}
   smoke: {fileID: 3682318132593212781}
   smokeDelay: 0.5
+  walkSpeed: 1
+  idleTime: 10
+  lookTransition:
+    curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    duration: 1
+    value: {x: 0, y: 0, z: 0, w: 0}
+    isOnTransition: 0
 --- !u!1 &7514756352254551142
 GameObject:
   m_ObjectHideFlags: 0

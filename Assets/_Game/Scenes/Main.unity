@@ -1457,6 +1457,9 @@ MonoBehaviour:
   prefab: {fileID: 2098385533984431111, guid: ea88f6a8b73ed474c8cfb773c8a7b207, type: 3}
   poolSize: 10
   spawnPoint: {x: -15, y: 0, z: 5}
+  walkingArea:
+    center: {x: 0, y: 0, z: 15}
+    size: {x: 20, y: 0, z: 10}
 --- !u!1 &1562058153
 GameObject:
   m_ObjectHideFlags: 0

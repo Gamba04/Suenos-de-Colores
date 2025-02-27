@@ -1,9 +1,11 @@
-using System.Threading.Tasks;
+using System.Collections;
 using UnityEngine;
 
 public class WalkingBear : MonoBehaviour
 {
     [Header("Components")]
+    [SerializeField]
+    private Animator animator;
     [SerializeField]
     private new SkinnedMeshRenderer renderer;
     [SerializeField]
@@ -12,8 +14,21 @@ public class WalkingBear : MonoBehaviour
     [Header("Settings")]
     [SerializeField]
     private float smokeDelay = 0.5f;
+    [SerializeField]
+    private float walkSpeed = 1;
+    [SerializeField]
+    private float idleTime = 5;
+
+    [Space]
+    [SerializeField]
+    private TransitionQuaternion lookTransition;
+
+    private readonly int walkingID = Animator.StringToHash("Walking");
 
     private MaterialPropertyBlock properties;
+
+    private WalkingBearsController.WalkingArea walkingArea;
+    private Coroutine walkingLoop;
 
     public bool IsActive
     {
@@ -23,11 +38,29 @@ public class WalkingBear : MonoBehaviour
 
     #region Init
 
-    public void Init()
+    public void Init(WalkingBearsController.WalkingArea walkingArea)
     {
-        IsActive = false;
+        this.walkingArea = walkingArea;
 
         properties = new MaterialPropertyBlock();
+
+        IsActive = false;
+    }
+
+    #endregion
+
+    // ----------------------------------------------------------------------------------------------------------------------------
+
+    #region Update
+
+    private void Update()
+    {
+        lookTransition.UpdateTransition(OnLookTransition);
+    }
+
+    private void OnLookTransition(Quaternion rotation)
+    {
+        transform.rotation = rotation;
     }
 
     #endregion
@@ -39,7 +72,6 @@ public class WalkingBear : MonoBehaviour
     public void Spawn(Vector3 position, SkinnedMeshRenderer data)
     {
         IsActive = true;
-
         transform.position = position;
 
         renderer.sharedMesh = data.sharedMesh;
@@ -47,23 +79,121 @@ public class WalkingBear : MonoBehaviour
         data.GetPropertyBlock(properties);
         renderer.SetPropertyBlock(properties);
 
-        // Start walking
+        walkingLoop = StartCoroutine(StartWalking());
     }
 
-    public async Task Despawn()
+    public IEnumerator Despawn()
     {
+        StopWalking();
+
         smoke.Play();
 
         float duration = smoke.main.startLifetime.constantMax;
 
-        await Delay(smokeDelay);
+        yield return new WaitForSeconds(smokeDelay);
 
         IsActive = false;
 
-        await Delay(duration - smokeDelay);
-
-        static Task Delay(float delay) => Task.Delay((int)(delay * 1000));
+        yield return new WaitForSeconds(duration - smokeDelay);
     }
+
+    #endregion
+
+    // ----------------------------------------------------------------------------------------------------------------------------
+
+    #region Walking
+
+    private IEnumerator StartWalking()
+    {
+        while (true)
+        {
+            Vector3 target = GetRandomPosition();
+
+            yield return StartCoroutine(Walk(target));
+
+            yield return new WaitForSeconds(idleTime);
+        }
+    }
+
+    private IEnumerator Walk(Vector3 target)
+    {
+        SetWalking(true);
+
+        Vector3 origin = transform.position;
+        Vector3 route = target - origin;
+
+        float duration = route.magnitude / walkSpeed;
+        float progress = 0;
+
+        LookTowards(route.normalized);
+
+        while (progress < 1)
+        {
+            progress += Time.deltaTime / duration;
+            progress = Mathf.Min(progress, 1);
+
+            transform.position = Vector3.Lerp(origin, target, progress);
+
+            yield return null;
+        }
+
+        SetWalking(false);
+        LookTowards(GetRandomDirection());
+    }
+
+    private void SetWalking(bool value)
+    {
+        animator.SetBool(walkingID, value);
+    }
+
+    private void StopWalking()
+    {
+        StopCoroutine(walkingLoop);
+        SetWalking(false);
+    }
+
+    #endregion
+
+    // ----------------------------------------------------------------------------------------------------------------------------
+
+    #region Other
+
+    private Vector3 GetRandomPosition()
+    {
+        return walkingArea.GetRandomPosition();
+    }
+
+    private Vector3 GetRandomDirection()
+    {
+        float angle = Random.Range(0, 360f) * Mathf.Deg2Rad;
+
+        return new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle));
+    }
+
+    private void LookTowards(Vector3 direction)
+    {
+        Quaternion lookRotation = Quaternion.LookRotation(direction, Vector3.up);
+        lookTransition.StartTransition(lookRotation);
+    }
+
+    #endregion
+
+    // ----------------------------------------------------------------------------------------------------------------------------
+
+    #region Editor
+
+#if UNITY_EDITOR
+
+    private void OnValidate()
+    {
+        ClampToZero(ref smokeDelay);
+        ClampToZero(ref walkSpeed);
+        ClampToZero(ref idleTime);
+
+        static void ClampToZero(ref float value) => value = Mathf.Max(value, 0);
+    }
+
+#endif
 
     #endregion
 
