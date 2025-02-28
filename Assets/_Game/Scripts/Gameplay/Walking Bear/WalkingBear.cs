@@ -23,6 +23,12 @@ public class WalkingBear : MonoBehaviour
     [SerializeField]
     private TransitionQuaternion lookTransition;
 
+    [Header("Collisions")]
+    [SerializeField]
+    private LayerMask detectionLayer;
+    [SerializeField]
+    private float detectionRange = 1;
+
     private readonly int walkingID = Animator.StringToHash("Walking");
 
     private MaterialPropertyBlock properties;
@@ -129,6 +135,8 @@ public class WalkingBear : MonoBehaviour
 
         while (progress < 1)
         {
+            if (CheckCollision(route.normalized)) break;
+
             progress += Time.deltaTime / duration;
             progress = Mathf.Min(progress, 1);
 
@@ -176,6 +184,11 @@ public class WalkingBear : MonoBehaviour
         lookTransition.StartTransition(lookRotation);
     }
 
+    private bool CheckCollision(Vector3 direction)
+    {
+        return Physics.Raycast(transform.position, direction, detectionRange, detectionLayer);
+    }
+
     #endregion
 
     // ----------------------------------------------------------------------------------------------------------------------------
@@ -189,6 +202,7 @@ public class WalkingBear : MonoBehaviour
         ClampToZero(ref smokeDelay);
         ClampToZero(ref walkSpeed);
         ClampToZero(ref idleTime);
+        ClampToZero(ref detectionRange);
 
         static void ClampToZero(ref float value) => value = Mathf.Max(value, 0);
     }

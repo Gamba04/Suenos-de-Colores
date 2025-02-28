@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering;
 using UnityEditor;
 
 public class WalkingBearsController : MonoBehaviour
@@ -30,7 +29,7 @@ public class WalkingBearsController : MonoBehaviour
         }
     }
 
-    #endregion
+#endregion
 
     [Header("Components")]
     [SerializeField]
