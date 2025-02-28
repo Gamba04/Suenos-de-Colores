@@ -5,6 +5,8 @@ public class WalkingBear : MonoBehaviour
 {
     [Header("Components")]
     [SerializeField]
+    private GameObject root;
+    [SerializeField]
     private Animator animator;
     [SerializeField]
     private new SkinnedMeshRenderer renderer;
@@ -36,11 +38,23 @@ public class WalkingBear : MonoBehaviour
     private WalkingBearsController.WalkingArea walkingArea;
     private Coroutine walkingLoop;
 
+    #region State
+
     public bool IsActive
     {
         get => gameObject.activeInHierarchy;
         private set => gameObject.SetActive(value);
     }
+
+    public bool IsVisible
+    {
+        get => root.activeInHierarchy;
+        private set => root.SetActive(value);
+    }
+
+    #endregion
+
+    // ----------------------------------------------------------------------------------------------------------------------------
 
     #region Init
 
@@ -78,6 +92,8 @@ public class WalkingBear : MonoBehaviour
     public void Spawn(Vector3 position, SkinnedMeshRenderer data)
     {
         IsActive = true;
+        IsVisible = true;
+
         transform.position = position;
 
         renderer.sharedMesh = data.sharedMesh;
@@ -98,7 +114,7 @@ public class WalkingBear : MonoBehaviour
 
         yield return new WaitForSeconds(smokeDelay);
 
-        IsActive = false;
+        IsVisible = false;
 
         yield return new WaitForSeconds(duration - smokeDelay);
     }
@@ -115,7 +131,7 @@ public class WalkingBear : MonoBehaviour
         {
             Vector3 target = GetRandomPosition();
 
-            yield return StartCoroutine(Walk(target));
+            yield return Walk(target);
 
             yield return new WaitForSeconds(idleTime);
         }
