@@ -47,6 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   root: {fileID: 6406962876808038558}
   animator: {fileID: 7166939695258542999}
+  collider: {fileID: 8436956050022260691}
   renderer: {fileID: 1145307564104912448}
   smoke: {fileID: 3682318132593212781}
   smokeDelay: 1.2

@@ -9,6 +9,8 @@ public class WalkingBear : MonoBehaviour
     [SerializeField]
     private Animator animator;
     [SerializeField]
+    private new BoxCollider collider;
+    [SerializeField]
     private new SkinnedMeshRenderer renderer;
     [SerializeField]
     private ParticleSystem smoke;
@@ -202,7 +204,9 @@ public class WalkingBear : MonoBehaviour
 
     private bool CheckCollision(Vector3 direction)
     {
-        return Physics.Raycast(transform.position, direction, detectionRange, detectionLayer);
+        Vector3 position = transform.TransformPoint(collider.center);
+
+        return Physics.Raycast(position, direction, detectionRange, detectionLayer);
     }
 
     #endregion

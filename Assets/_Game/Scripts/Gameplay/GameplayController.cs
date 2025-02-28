@@ -32,8 +32,6 @@ public class GameplayController : MonoBehaviour
         bearController.Init();
         inactivityController.Init();
         walkingBearsController.Init();
-
-        Physics.autoSimulation = false;
     }
 
     private void InitEvents()
