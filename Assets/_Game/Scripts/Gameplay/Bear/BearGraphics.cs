@@ -110,7 +110,7 @@ public class BearGraphics : MonoBehaviour
                 {
                     int index = y * width + x;
 
-                    Color pixel = default;
+                    Color pixel = Color.white;
 
                     for (int l = 0; l < layers; l++)
                     {

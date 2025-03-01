@@ -14,7 +14,7 @@ public class WebcamController : MonoBehaviour
         [SerializeField, HideInInspector] private string name;
 
         public Color gizmosColor = Color.white;
-        public WebcamDataScrObj data;
+        public WebcamDataAsset data;
 
         public void SetName(Outfit outfit)
         {
@@ -56,7 +56,7 @@ public class WebcamController : MonoBehaviour
 
         await Task.Yield();
 
-        foreach (WebcamDataScrObj.OutfitNode node in data.data.Nodes)
+        foreach (WebcamDataAsset.OutfitNode node in data.data.Nodes)
         {
             Color color = WebcamProcessing.ScanColor(picture, node.position, node.size);
 
@@ -105,7 +105,7 @@ public class WebcamController : MonoBehaviour
 
             Gizmos.color = outfit.gizmosColor;
 
-            foreach (WebcamDataScrObj.OutfitNode node in outfit.data.Nodes)
+            foreach (WebcamDataAsset.OutfitNode node in outfit.data.Nodes)
             {
                 Vector3 position = node.position * height;
                 float size = node.size * height;
