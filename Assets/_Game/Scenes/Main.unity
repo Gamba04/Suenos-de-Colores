@@ -517,7 +517,7 @@ MonoBehaviour:
   renderer: {fileID: 7007780776202629463}
   outfits:
   - name: Outfit_1
-    mesh: {fileID: 4300000, guid: 936ea68ca63866849b0056bf461fac06, type: 2}
+    mesh: {fileID: 4300000, guid: 08667b07433b29d4a984c9b8671953b0, type: 2}
     masks:
     - {fileID: 2800000, guid: 89bc58e2ff75ed64aa825f760f692c51, type: 3}
     - {fileID: 2800000, guid: 0f761ca234eb8c348aeac9d0a8bf70c3, type: 3}
