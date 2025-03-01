@@ -6,9 +6,7 @@ using UnityEngine.Audio;
 /// <summary> SFX sounds. </summary>
 public enum SFXTag
 {
-    ButtonHover,
-    ButtonClick,
-    BoxReveal,
+
 }
 
 /// <summary> SFX Loop sounds. </summary>
