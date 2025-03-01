@@ -34,7 +34,7 @@ public class CameraController : MonoBehaviour
 
     public void Init()
     {
-        animator.enabled = false;
+        SetAnimator(false);
 
         origin = new TransformData(transform);
     }
@@ -58,12 +58,12 @@ public class CameraController : MonoBehaviour
 
     public void Play()
     {
-        animator.enabled = true;
+        SetAnimator(true);
     }
 
     public async Task Stop()
     {
-        animator.enabled = false;
+        SetAnimator(false);
 
         TaskCompletionSource<bool> delay = new TaskCompletionSource<bool>();
 
@@ -71,6 +71,19 @@ public class CameraController : MonoBehaviour
         cameraTransition.StartTransition(origin.position, origin.rotation, () => delay.SetResult(true));
 
         await delay.Task;
+    }
+
+    #endregion
+
+    // ----------------------------------------------------------------------------------------------------------------------------
+
+    #region Other
+
+    private void SetAnimator(bool enabled)
+    {
+        animator.enabled = enabled;
+
+        if (enabled) animator.Rebind();
     }
 
     #endregion
