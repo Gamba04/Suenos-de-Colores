@@ -353,9 +353,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outfits:
-  - name: Outfit_1 (Color Sheet)
-    gizmosColor: {r: 0, g: 0.8973751, b: 1, a: 1}
-    data: {fileID: 11400000, guid: f431793bde7f13743973ff797b9fc9d6, type: 2}
+  - name: Outfit_1 (Outfit 1)
+    gizmosColor: {r: 1, g: 0, b: 0, a: 1}
+    data: {fileID: 11400000, guid: f5549920d03d9cf40906ce3fd0d8d731, type: 2}
   - name: Outfit_2 (None)
     gizmosColor: {r: 1, g: 1, b: 1, a: 1}
     data: {fileID: 0}
@@ -519,11 +519,18 @@ MonoBehaviour:
   - name: Outfit_1
     mesh: {fileID: 4300000, guid: 08667b07433b29d4a984c9b8671953b0, type: 2}
     masks:
+    - {fileID: 2800000, guid: 7995e28682b446c4891278de54abb804, type: 3}
+    - {fileID: 2800000, guid: 2d14e034af8160b4e88a73566799b42c, type: 3}
+    - {fileID: 2800000, guid: f446b166792476c4d94a4741c499d7e9, type: 3}
+    - {fileID: 2800000, guid: febb90675964524449456fd27c945989, type: 3}
+    - {fileID: 2800000, guid: acae33c74a6382141887369fa412f267, type: 3}
+    - {fileID: 2800000, guid: 9ae6129f86a95314ab356aa8f47ea32d, type: 3}
+    - {fileID: 2800000, guid: 9fbb21bd261dfaf4fac55746c3093233, type: 3}
+    - {fileID: 2800000, guid: cec4a9bb4f11e1c498525edacd4aa1c1, type: 3}
     - {fileID: 2800000, guid: 89bc58e2ff75ed64aa825f760f692c51, type: 3}
     - {fileID: 2800000, guid: 0f761ca234eb8c348aeac9d0a8bf70c3, type: 3}
     - {fileID: 2800000, guid: 2dc8cc410b6aedf4fb90a4839e8eaaeb, type: 3}
-    - {fileID: 2800000, guid: 025f41dc1a032b94793d3ab3ae9e7690, type: 3}
-    - {fileID: 2800000, guid: cec4a9bb4f11e1c498525edacd4aa1c1, type: 3}
+    - {fileID: 2800000, guid: 2dc8cc410b6aedf4fb90a4839e8eaaeb, type: 3}
     - {fileID: 2800000, guid: f6ae4b1d0077fbe4286b4fa487e3158c, type: 3}
     - {fileID: 2800000, guid: 61c794b3893bc664aaa4f25ea0e04478, type: 3}
     - {fileID: 2800000, guid: 789d1bc49f2e77042ab7a1c6cbdd4d28, type: 3}
@@ -533,13 +540,6 @@ MonoBehaviour:
     - {fileID: 2800000, guid: f70d3213a6717734782e34e0d036a43e, type: 3}
     - {fileID: 2800000, guid: 7fb32bfec7ee58143829c6eb72f5c21f, type: 3}
     - {fileID: 2800000, guid: 00bf037f8889f22459d6a5a1a222cc18, type: 3}
-    - {fileID: 2800000, guid: 7995e28682b446c4891278de54abb804, type: 3}
-    - {fileID: 2800000, guid: 2d14e034af8160b4e88a73566799b42c, type: 3}
-    - {fileID: 2800000, guid: f446b166792476c4d94a4741c499d7e9, type: 3}
-    - {fileID: 2800000, guid: febb90675964524449456fd27c945989, type: 3}
-    - {fileID: 2800000, guid: acae33c74a6382141887369fa412f267, type: 3}
-    - {fileID: 2800000, guid: 9ae6129f86a95314ab356aa8f47ea32d, type: 3}
-    - {fileID: 2800000, guid: 9fbb21bd261dfaf4fac55746c3093233, type: 3}
     albedo: {fileID: 0}
     normal: {fileID: 2800000, guid: b263d4abcdc959b42a88468e4a1d3eb0, type: 3}
   - name: Outfit_2
