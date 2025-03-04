@@ -12,7 +12,7 @@ public enum SFXTag
 /// <summary> SFX Loop sounds. </summary>
 public enum SFXLoopTag
 {
-
+    Ambient,
 }
 
 public class SFXPlayer : MonoBehaviour
