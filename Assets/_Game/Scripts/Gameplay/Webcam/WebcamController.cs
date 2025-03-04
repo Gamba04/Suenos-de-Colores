@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEditor;
 
 public class WebcamController : MonoBehaviour
 {
@@ -13,21 +14,45 @@ public class WebcamController : MonoBehaviour
     {
         [SerializeField, HideInInspector] private string name;
 
-        public Color gizmosColor = Color.white;
         public WebcamDataAsset data;
 
         public void SetName(Outfit outfit)
         {
-            string data = this.data != null ? this.data.name : "None";
-
-            name = $"{outfit} ({data})";
+            name = outfit.ToString();
         }
     }
+
+    #region Custom Editor
+
+#if UNITY_EDITOR
+
+    [CustomPropertyDrawer(typeof(OutfitData))]
+    private class OutfitDataDrawer : PropertyDrawer
+    {
+        public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+        {
+            position.height = EditorGUIUtility.singleLineHeight;
+            SerializedProperty data = property.FindPropertyRelative(nameof(OutfitData.data));
+
+            EditorGUI.PropertyField(position, data, label);
+        }
+
+        public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
+        {
+            return EditorGUIUtility.singleLineHeight;
+        }
+    }
+
+#endif
+
+    #endregion
 
     #endregion
 
     [SerializeField]
     private List<OutfitData> outfits = new List<OutfitData>();
+    [ReadOnly, SerializeField]
+    private List<Color> colors;
 
     private WebCamTexture webcam;
 
@@ -49,14 +74,14 @@ public class WebcamController : MonoBehaviour
 
     public async Task<List<Color>> GetOutfitColors(Outfit outfit)
     {
-        List<Color> colors = new List<Color>();
-
-        OutfitData data = outfits[(int)outfit];
+        List<WebcamDataAsset.OutfitNode> nodes = outfits[(int)outfit].data.Nodes;
         Texture2D picture = TakePicture();
+
+        colors = new List<Color>(nodes.Count);
 
         await Task.Yield();
 
-        foreach (WebcamDataAsset.OutfitNode node in data.data.Nodes)
+        foreach (WebcamDataAsset.OutfitNode node in nodes)
         {
             Color color = WebcamProcessing.ScanColor(picture, node.position, node.size);
 
@@ -92,28 +117,6 @@ public class WebcamController : MonoBehaviour
     #region Editor
 
 #if UNITY_EDITOR
-
-    private void OnDrawGizmos()
-    {
-        RectTransform root = transform as RectTransform;
-
-        float height = root.rect.height * root.lossyScale.y;
-
-        foreach (OutfitData outfit in outfits)
-        {
-            if (outfit.data == null) continue;
-
-            Gizmos.color = outfit.gizmosColor;
-
-            foreach (WebcamDataAsset.OutfitNode node in outfit.data.Nodes)
-            {
-                Vector3 position = node.position * height;
-                float size = node.size * height;
-
-                Gizmos.DrawWireCube(transform.position + position, Vector2.one * size);
-            }
-        }
-    }
 
     private void OnValidate()
     {

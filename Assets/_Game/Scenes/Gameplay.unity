@@ -214,8 +214,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
-  - {fileID: 238516488}
-  - {fileID: 22534875}
+  - {fileID: 6400442492753148539}
   m_Father: {fileID: 301562769}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -224,42 +223,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!1 &22534874
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 22534875}
-  m_Layer: 5
-  m_Name: Other
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &22534875
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 22534874}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 6400442492753148539}
-  m_Father: {fileID: 20363270}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &101598204
 GameObject:
   m_ObjectHideFlags: 0
@@ -304,64 +267,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   requests: []
---- !u!1 &238516487
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 238516488}
-  - component: {fileID: 238516489}
-  m_Layer: 5
-  m_Name: Webcam
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &238516488
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 238516487}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 20363270}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &238516489
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 238516487}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1107803aaae052c429f266482e3a2c33, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  outfits:
-  - name: Outfit_1 (Outfit 1)
-    gizmosColor: {r: 1, g: 0, b: 0, a: 1}
-    data: {fileID: 11400000, guid: f5549920d03d9cf40906ce3fd0d8d731, type: 2}
-  - name: Outfit_2 (None)
-    gizmosColor: {r: 1, g: 1, b: 1, a: 1}
-    data: {fileID: 0}
-  - name: Outfit_3 (None)
-    gizmosColor: {r: 1, g: 1, b: 1, a: 1}
-    data: {fileID: 0}
 --- !u!1 &260287925
 GameObject:
   m_ObjectHideFlags: 0
@@ -1249,7 +1154,7 @@ GameObject:
   - component: {fileID: 862398043}
   - component: {fileID: 862398044}
   m_Layer: 0
-  m_Name: Controllers
+  m_Name: General
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1775,6 +1680,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2144003971}
   - component: {fileID: 2144003972}
+  - component: {fileID: 2144003974}
   - component: {fileID: 2144003973}
   - component: {fileID: 2144003970}
   m_Layer: 0
@@ -1826,13 +1732,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26c87e6095b8d6b47bd1612014b6d64c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  input: {fileID: 2144003973}
-  webcamController: {fileID: 238516489}
-  bearController: {fileID: 2082121713}
+  input: {fileID: 2144003974}
+  webcamController: {fileID: 2144003973}
   inactivityController: {fileID: 519420035}
+  bearController: {fileID: 2082121713}
   walkingBearsController: {fileID: 1489512613}
   isPlaying: 0
 --- !u!114 &2144003973
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2144003969}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1107803aaae052c429f266482e3a2c33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outfits:
+  - name: Outfit_1
+    data: {fileID: 11400000, guid: f5549920d03d9cf40906ce3fd0d8d731, type: 2}
+  - name: Outfit_2
+    data: {fileID: 11400000, guid: 2778c310e9855024cb6c7f3b3229e3de, type: 2}
+  - name: Outfit_3
+    data: {fileID: 11400000, guid: 3d6e79a418a04fc42bad4676719095b1, type: 2}
+  colors: []
+--- !u!114 &2144003974
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1845,12 +1771,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   keybinds:
-  - name: Outfit_1 (Alpha1)
+  - name: Outfit_1
     key: 49
-  - name: Outfit_2 (Alpha2)
+    altKey: 257
+  - name: Outfit_2
     key: 50
-  - name: Outfit_3 (Alpha3)
+    altKey: 258
+  - name: Outfit_3
     key: 51
+    altKey: 259
 --- !u!4 &4397090155092421939 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6818651436996753060, guid: 12b5da116e6e2894b995a771d2d3f44f,
@@ -1961,7 +1890,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6400442492015182496}
-  m_Father: {fileID: 22534875}
+  m_Father: {fileID: 20363270}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}

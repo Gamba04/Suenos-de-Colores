@@ -20,12 +20,13 @@ public class GameplayInput : MonoBehaviour
         [SerializeField, HideInInspector] private string name;
 
         public KeyCode key;
+        public KeyCode altKey;
 
-        public void SetName(int index)
+        public bool IsKeyDown => Input.GetKeyDown(key) || Input.GetKeyDown(altKey);
+
+        public void SetName(Outfit outfit)
         {
-            Outfit bear = (Outfit)index;
-
-            name = $"{bear} ({key})";
+            name = outfit.ToString();
         }
     }
 
@@ -42,7 +43,7 @@ public class GameplayInput : MonoBehaviour
     {
         for (int i = 0; i < keybinds.Count; i++)
         {
-            if (Input.GetKeyDown(keybinds[i].key))
+            if (keybinds[i].IsKeyDown)
             {
                 onInput?.Invoke((Outfit)i);
             }
@@ -60,7 +61,7 @@ public class GameplayInput : MonoBehaviour
     private void OnValidate()
     {
         keybinds.Resize(typeof(Outfit));
-        keybinds.ForEach((keybind, index) => keybind.SetName(index));
+        keybinds.ForEach((keybind, index) => keybind.SetName((Outfit)index));
     }
 
 #endif

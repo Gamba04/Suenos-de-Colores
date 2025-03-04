@@ -4,7 +4,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = title, menuName = "Gamba/" + title)]
 public class MusicPlaylistAsset : ScriptableObject
 {
-    private const string title = "Playlist";
+    private const string title = "Music Playlist";
 
     [SerializeField]
     private List<AudioClip> songs;

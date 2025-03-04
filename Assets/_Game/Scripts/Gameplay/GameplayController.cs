@@ -10,9 +10,9 @@ public class GameplayController : MonoBehaviour
     [SerializeField]
     private WebcamController webcamController;
     [SerializeField]
-    private BearController bearController;
-    [SerializeField]
     private InactivityController inactivityController;
+    [SerializeField]
+    private BearController bearController;
     [SerializeField]
     private WalkingBearsController walkingBearsController;
 
@@ -29,8 +29,8 @@ public class GameplayController : MonoBehaviour
         InitEvents();
 
         webcamController.Init();
-        bearController.Init();
         inactivityController.Init();
+        bearController.Init();
         walkingBearsController.Init();
     }
 
