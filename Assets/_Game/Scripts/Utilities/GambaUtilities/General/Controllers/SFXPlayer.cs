@@ -6,13 +6,20 @@ using UnityEngine.Audio;
 /// <summary> SFX sounds. </summary>
 public enum SFXTag
 {
-
+    Log,
+    Smoke,
+    Greeting,
+    Pose,
+    Jump,
+    Landing,
+    Footstep
 }
 
 /// <summary> SFX Loop sounds. </summary>
 public enum SFXLoopTag
 {
     Ambient,
+    Bees
 }
 
 public class SFXPlayer : MonoBehaviour
