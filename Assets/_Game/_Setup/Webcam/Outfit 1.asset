@@ -69,7 +69,7 @@ MonoBehaviour:
     size: 0.015
   - name: Node 18
     position: {x: -0.45, y: -0.028}
-    size: 0.03
+    size: 0.035
   - name: Node 19
     position: {x: -0.49, y: -0.146}
     size: 0.015
