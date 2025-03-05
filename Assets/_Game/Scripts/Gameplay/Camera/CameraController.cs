@@ -34,7 +34,7 @@ public class CameraController : MonoBehaviour
 
     public void Init()
     {
-        SetAnimator(false);
+        SetAnimator(false, true);
 
         origin = new TransformData(transform);
     }
@@ -58,7 +58,7 @@ public class CameraController : MonoBehaviour
 
     public void Play()
     {
-        SetAnimator(true);
+        SetAnimator(true, true);
     }
 
     public async Task Stop()
@@ -79,11 +79,11 @@ public class CameraController : MonoBehaviour
 
     #region Other
 
-    private void SetAnimator(bool enabled)
+    private void SetAnimator(bool enabled, bool reset = false)
     {
         animator.enabled = enabled;
 
-        if (enabled) animator.Rebind();
+        if (reset) animator.Rebind();
     }
 
     #endregion
