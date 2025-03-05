@@ -283,7 +283,7 @@ MonoBehaviour:
   - name: Outfit_3 (Outfit 3)
     data: {fileID: 11400000, guid: 3d6e79a418a04fc42bad4676719095b1, type: 2}
     lineArt: {fileID: 2800000, guid: 46d3cb207282b3d4aa327f8ce32ad4e0, type: 3}
-  previewOutfit: 1
+  previewOutfit: 2
   gizmosColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1 &1821172514
 GameObject:
@@ -350,7 +350,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: 5b0483e214e9f2d4a95eae09c38b76eb, type: 3}
+  m_Texture: {fileID: 2800000, guid: 46d3cb207282b3d4aa327f8ce32ad4e0, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
