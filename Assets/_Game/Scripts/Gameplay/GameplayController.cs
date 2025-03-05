@@ -20,18 +20,32 @@ public class GameplayController : MonoBehaviour
     [ReadOnly, SerializeField]
     private bool isPlaying;
 
-    public bool IsAvailable => !isPlaying && webcamController.IsAvailable;
+    private bool isInitialized;
+
+    private bool IsAvailable => isInitialized && !isPlaying;
 
     #region Init
 
-    private void Awake()
+    private async void Awake()
     {
+        await BeginInit();
+
         InitEvents();
 
-        webcamController.Init();
         inactivityController.Init();
         bearController.Init();
         walkingBearsController.Init();
+
+        await webcamController.Init();
+
+        EndInit();
+    }
+
+    private async Task BeginInit()
+    {
+        UIFade.SetFade(true, true);
+
+        await Task.Yield();
     }
 
     private void InitEvents()
@@ -39,6 +53,13 @@ public class GameplayController : MonoBehaviour
         input.onInput += OnInput;
 
         bearController.onFinishPlaying += OnFinishPlaying;
+    }
+
+    private void EndInit()
+    {
+        isInitialized = true;
+
+        UIFade.SetFade(false);
     }
 
     #endregion
@@ -52,8 +73,6 @@ public class GameplayController : MonoBehaviour
         if (!IsAvailable) return;
 
         isPlaying = true;
-
-        await Task.Yield();
 
         Task stopInactivity = inactivityController.StopInactivity();
 

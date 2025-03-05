@@ -56,14 +56,13 @@ public class WebcamController : MonoBehaviour
 
     private WebCamTexture webcam;
 
-    public bool IsAvailable => webcam.isPlaying;
-
     #region Init
 
-    public void Init()
+    public async Task Init()
     {
         webcam = new WebCamTexture();
-        webcam.Play();
+
+        await GenerateFrame();
     }
 
     #endregion
@@ -75,9 +74,9 @@ public class WebcamController : MonoBehaviour
     public async Task<List<Color>> GetOutfitColors(Outfit outfit)
     {
         List<WebcamDataAsset.OutfitNode> nodes = outfits[(int)outfit].data.Nodes;
-        Texture2D picture = TakePicture();
-
         colors = new List<Color>(nodes.Count);
+
+        Texture2D picture = await TakePicture();
 
         await Task.Yield();
 
@@ -97,17 +96,28 @@ public class WebcamController : MonoBehaviour
 
     // ----------------------------------------------------------------------------------------------------------------------------
 
-    #region Other
+    #region Webcam
 
-    private Texture2D TakePicture()
+    private async Task<Texture2D> TakePicture()
     {
-        Texture2D texture = new Texture2D(webcam.width, webcam.height, TextureFormat.RGBA32, false);
+        await GenerateFrame();
+
+        Texture2D texture = new Texture2D(webcam.width, webcam.height);
 
         texture.SetPixels32(webcam.GetPixels32());
-
         texture.Apply();
 
         return texture;
+    }
+
+    private async Task GenerateFrame()
+    {
+        webcam.Play();
+
+        do await Task.Yield();
+        while (!webcam.didUpdateThisFrame);
+
+        webcam.Pause();
     }
 
     #endregion
