@@ -979,6 +979,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Smoke
       objectReference: {fileID: 0}
+    - target: {fileID: 7857859445074352372, guid: edefe49712374d5429a1e900ba476e85,
+        type: 3}
+      propertyPath: UVModule.tilesX
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 7920483074009446896, guid: edefe49712374d5429a1e900ba476e85,
         type: 3}
       propertyPath: m_RootOrder
