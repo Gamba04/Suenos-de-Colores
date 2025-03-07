@@ -37,7 +37,7 @@ public class BearGraphics : MonoBehaviour
     private List<OutfitData> outfits;
 
     private readonly int playID = Animator.StringToHash("Play");
-    private readonly int mainTextureID = Shader.PropertyToID("_MainTex");
+    private readonly int mainTextureID = Shader.PropertyToID("_BaseMap");
     private readonly int normalMapID = Shader.PropertyToID("_BumpMap");
 
     private MaterialPropertyBlock properties;
