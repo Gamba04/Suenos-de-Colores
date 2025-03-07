@@ -2,10 +2,6 @@
     "foldersData" :
     [
         {
-            "path" : "Assets/_Game",
-            "color" : "#606060"
-        },
-        {
             "path" : "Assets/_Game/_Setup",
             "color" : "#606060"
         },
