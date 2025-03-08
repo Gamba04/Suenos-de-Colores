@@ -28,13 +28,22 @@ public class GameplayController : MonoBehaviour
 
     private async void Awake()
     {
+        InitPreAsync();
+
+        await InitAsyncProcess();
+
+        InitPostAsync();
+    }
+
+    #region Pre Async
+
+    private void InitPreAsync()
+    {
         InitEvents();
 
         inactivityController.Init();
         bearController.Init();
         walkingBearsController.Init();
-
-        await InitAsync();
     }
 
     private void InitEvents()
@@ -44,28 +53,42 @@ public class GameplayController : MonoBehaviour
         bearController.onFinishPlaying += OnFinishPlaying;
     }
 
-    private async Task InitAsync()
+    #endregion
+
+    // ----------------------------------------------------------------------------------------------------------------------------
+
+    #region Async
+
+    private async Task InitAsyncProcess()
     {
-        BeginFade();
+        UIFade.SetFade(true, true);
 
         await Task.Yield();
 
-        await webcamController.Init();
+        await InitAsync();
 
-        EndFade();
-    }
-
-    private void BeginFade()
-    {
-        UIFade.SetFade(true, true);
-    }
-
-    private void EndFade()
-    {
         UIFade.SetFade(false);
 
         isInitialized = true;
     }
+
+    private async Task InitAsync()
+    {
+        await webcamController.Init();
+    }
+
+    #endregion
+
+    // ----------------------------------------------------------------------------------------------------------------------------
+
+    #region Post Async
+
+    private void InitPostAsync()
+    {
+        inactivityController.StartCooldown();
+    }
+
+    #endregion
 
     #endregion
 
