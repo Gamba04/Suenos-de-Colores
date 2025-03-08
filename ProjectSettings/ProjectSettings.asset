@@ -16,11 +16,11 @@ PlayerSettings:
   productName: "Sue\xF1os de Colores"
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
-  m_SplashScreenBackgroundColor: {r: 0.6, g: 0.8745098, b: 1, a: 1}
+  m_SplashScreenBackgroundColor: {r: 0.5294118, g: 0.85490197, b: 0.81960785, a: 1}
   m_ShowUnitySplashScreen: 1
   m_ShowUnitySplashLogo: 1
   m_SplashScreenOverlayOpacity: 1
-  m_SplashScreenAnimation: 1
+  m_SplashScreenAnimation: 0
   m_SplashScreenLogoStyle: 0
   m_SplashScreenDrawMode: 0
   m_SplashScreenBackgroundAnimationZoom: 1
