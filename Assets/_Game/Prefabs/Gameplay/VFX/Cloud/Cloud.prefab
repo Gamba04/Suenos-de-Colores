@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3679040377070396920}
   - component: {fileID: 8248006869156288662}
   m_Layer: 0
-  m_Name: Smoke
+  m_Name: Cloud
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
