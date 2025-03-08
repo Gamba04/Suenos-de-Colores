@@ -20,8 +20,6 @@ public class InactivityController : MonoBehaviour
     public void Init()
     {
         cameraController.Init();
-
-        StartCooldown();
     }
 
     #endregion
