@@ -50,7 +50,7 @@ MonoBehaviour:
   collider: {fileID: 8436956050022260691}
   renderer: {fileID: 1145307564104912448}
   smoke: {fileID: 3682318132593212781}
-  smokeDelay: 1.2
+  smokeDelay: 1.75
   walkSpeed: 1
   idleTime: 10
   lookTransition:
