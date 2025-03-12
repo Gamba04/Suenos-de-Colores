@@ -1,10 +1,11 @@
+using System.Threading.Tasks;
 using UnityEngine;
 
 public static class WebcamProcessing
 {
     private const float brightnessBoost = 1.1f;
 
-    public static Color ScanColor(Texture2D texture, Vector2 position, float size)
+    public static async Task<Color> ScanColor(Texture2D texture, Vector2 position, float size)
     {
         // Process values
         position *= texture.height;
@@ -14,7 +15,8 @@ public static class WebcamProcessing
 
         // Get color
         Color[] pixels = GetPixels(texture, position, size);
-        Color color = GetAverage(pixels);
+
+        Color color = await Task.Run(() => GetAverage(pixels));
 
         // Process color
         color *= brightnessBoost;

@@ -82,11 +82,9 @@ public class WebcamController : MonoBehaviour
 
         foreach (WebcamDataAsset.OutfitNode node in nodes)
         {
-            Color color = WebcamProcessing.ScanColor(picture, node.position, node.size);
+            Color color = await WebcamProcessing.ScanColor(picture, node.position, node.size);
 
             colors.Add(color);
-
-            await Task.Yield();
         }
 
         return colors;
@@ -104,7 +102,14 @@ public class WebcamController : MonoBehaviour
 
         Texture2D texture = new Texture2D(webcam.width, webcam.height);
 
-        texture.SetPixels32(webcam.GetPixels32());
+        Color32[] pixels = webcam.GetPixels32();
+
+        await Task.Yield();
+
+        texture.SetPixels32(pixels);
+
+        await Task.Yield();
+
         texture.Apply();
 
         return texture;

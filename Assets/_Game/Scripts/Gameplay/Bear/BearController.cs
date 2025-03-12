@@ -15,10 +15,7 @@ public class BearController : MonoBehaviour
 
     #region Init
 
-    public void Init()
-    {
-        graphics.Init();
-    }
+    public void Init() => graphics.Init();
 
     #endregion
 
@@ -26,7 +23,7 @@ public class BearController : MonoBehaviour
 
     #region Public Methods
 
-    public Task SetData(Outfit outfit, List<Color> colors) => graphics.SetData(outfit, colors);
+    public Task SetData(Outfit outfit, List<Color> colors) => graphics.SetData((int)outfit, colors);
 
     public void Play() => graphics.Play();
 

@@ -40,15 +40,75 @@ public class BearGraphics : MonoBehaviour
     private readonly int mainTextureID = Shader.PropertyToID("_MainTex");
     private readonly int normalMapID = Shader.PropertyToID("_BumpMap");
 
+    private readonly Texture2D[] outfitTextures = new Texture2D[OutfitsAmount];
+    private readonly Color[][] outfitPixels = new Color[OutfitsAmount][];
+    private readonly float[][][] outfitMasks = new float[OutfitsAmount][][];
+    private readonly Color[][] outfitAlbedos = new Color[OutfitsAmount][];
+
     private MaterialPropertyBlock properties;
 
     public SkinnedMeshRenderer Renderer => renderer;
+
+    private static int OutfitsAmount => Enum.GetValues(typeof(Outfit)).Length;
 
     #region Init
 
     public void Init()
     {
         properties = new MaterialPropertyBlock();
+
+        InitOutfitContainers();
+        InitOutfitData();
+    }
+
+    private void InitOutfitContainers()
+    {
+        for (int i = 0; i < outfitTextures.Length; i++)
+        {
+            OutfitData outfit = outfits[i];
+
+            bool hasAlbedo = outfit.albedo != null;
+            Texture2D reference = hasAlbedo ? outfit.albedo : outfit.masks[0];
+
+            int size = reference.width * reference.height;
+
+            outfitTextures[i] = new Texture2D(reference.width, reference.height);
+            outfitPixels[i] = new Color[size];
+        }
+    }
+
+    private void InitOutfitData()
+    {
+        for (int i = 0; i < outfitMasks.Length; i++)
+        {
+            OutfitData outfit = outfits[i];
+
+            bool hasAlbedo = outfit.albedo != null;
+
+            outfitMasks[i] = GetMaskValues(outfit);
+            outfitAlbedos[i] = hasAlbedo ? outfit.albedo.GetPixels() : null;
+        }
+    }
+
+    private float[][] GetMaskValues(OutfitData outfit)
+    {
+        List<Texture2D> masks = outfit.masks;
+        float[][] values = new float[masks.Count][];
+
+        for (int m = 0; m < masks.Count; m++)
+        {
+            Color32[] maskPixels = masks[m].GetPixels32();
+            float[] maskValues = new float[maskPixels.Length];
+
+            for (int i = 0; i < maskPixels.Length; i++)
+            {
+                maskValues[i] = (float)maskPixels[i].r / byte.MaxValue;
+            }
+
+            values[m] = maskValues;
+        }
+
+        return values;
     }
 
     #endregion
@@ -57,13 +117,13 @@ public class BearGraphics : MonoBehaviour
 
     #region Public Methods
 
-    public async Task SetData(Outfit outfit, List<Color> colors)
+    public async Task SetData(int outfit, List<Color> colors)
     {
-        OutfitData data = outfits[(int)outfit];
+        OutfitData data = outfits[outfit];
 
         renderer.sharedMesh = data.mesh;
 
-        Texture2D texture = await GetOutfitTexture(data, colors);
+        Texture2D texture = await GetOutfitTexture(outfit, data, colors);
 
         properties.SetTexture(mainTextureID, texture);
         properties.SetTexture(normalMapID, data.normal);
@@ -82,24 +142,19 @@ public class BearGraphics : MonoBehaviour
 
     #region Other
 
-    private async Task<Texture2D> GetOutfitTexture(OutfitData outfit, List<Color> colors)
+    private async Task<Texture2D> GetOutfitTexture(int outfit, OutfitData data, List<Color> colors)
     {
-        bool hasAlbedo = outfit.albedo != null;
-        Texture2D referenceTexture = hasAlbedo ? outfit.albedo : outfit.masks[0];
+        // Get preprocessed data
+        Texture2D texture = outfitTextures[outfit];
+        Color[] pixels = outfitPixels[outfit];
+        float[][] values = outfitMasks[outfit];
+        Color[] albedos = outfitAlbedos[outfit];
 
         // Get values
-        int width = referenceTexture.width;
-        int height = referenceTexture.height;
+        int width = texture.width;
+        int height = texture.height;
 
-        int size = width * height;
-        int layers = Math.Min(outfit.masks.Count, colors.Count);
-
-        // Get containers
-        Texture2D texture = new Texture2D(width, height);
-        Color[] pixels = new Color[size];
-
-        float[][] values = await GetMaskValues(outfit.masks);
-        Color[] albedos = hasAlbedo ? outfit.albedo.GetPixels() : null;
+        int layers = Math.Min(data.masks.Count, colors.Count);
 
         // Generate texture
         await Task.Run(() =>
@@ -121,7 +176,7 @@ public class BearGraphics : MonoBehaviour
                         pixel = Color.Lerp(pixel, colors[l], value);
                     }
 
-                    if (hasAlbedo) pixel *= albedos[index];
+                    if (albedos != null) pixel *= albedos[index];
 
                     pixels[index] = pixel;
                 }
@@ -130,33 +185,12 @@ public class BearGraphics : MonoBehaviour
 
         // Apply texture
         texture.SetPixels(pixels);
-        texture.Apply();
-
-        return texture;
-    }
-
-    private async Task<float[][]> GetMaskValues(List<Texture2D> masks)
-    {
-        float[][] values = new float[masks.Count][];
 
         await Task.Yield();
 
-        for (int m = 0; m < masks.Count; m++)
-        {
-            Color32[] maskPixels = masks[m].GetPixels32();
-            float[] maskValues = new float[maskPixels.Length];
+        texture.Apply();
 
-            for (int i = 0; i < maskPixels.Length; i++)
-            {
-                maskValues[i] = (float)maskPixels[i].r / byte.MaxValue;
-            }
-
-            values[m] = maskValues;
-
-            await Task.Yield();
-        }
-
-        return values;
+        return texture;
     }
 
     #endregion
