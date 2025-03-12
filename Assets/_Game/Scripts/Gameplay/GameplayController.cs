@@ -30,7 +30,7 @@ public class GameplayController : MonoBehaviour
     {
         InitPreAsync();
 
-        await InitAsyncProcess();
+        await InitAsyncSequence();
 
         InitPostAsync();
     }
@@ -42,14 +42,11 @@ public class GameplayController : MonoBehaviour
         InitEvents();
 
         inactivityController.Init();
-        bearController.Init();
-        walkingBearsController.Init();
     }
 
     private void InitEvents()
     {
         input.onInput += OnInput;
-
         bearController.onFinishPlaying += OnFinishPlaying;
     }
 
@@ -59,13 +56,15 @@ public class GameplayController : MonoBehaviour
 
     #region Async
 
-    private async Task InitAsyncProcess()
+    private async Task InitAsyncSequence()
     {
         UIFade.SetFade(true, true);
 
-        await Task.Yield();
+        Task async = InitAsync();
 
-        await InitAsync();
+        InitInterAsync();
+
+        await async;
 
         UIFade.SetFade(false);
 
@@ -74,7 +73,14 @@ public class GameplayController : MonoBehaviour
 
     private async Task InitAsync()
     {
+        await Task.Yield();
         await webcamController.Init();
+    }
+
+    private void InitInterAsync()
+    {
+        bearController.Init();
+        walkingBearsController.Init();
     }
 
     #endregion
