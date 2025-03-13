@@ -21,7 +21,11 @@ public class WalkingBear : MonoBehaviour
     [SerializeField]
     private float walkSpeed = 1;
     [SerializeField]
-    private float idleTime = 5;
+    [Range(0, 10)]
+    private float idleTimeMin = 5;
+    [SerializeField]
+    [Range(0, 10)]
+    private float idleTimeMax = 5;
 
     [Space]
     [SerializeField]
@@ -135,7 +139,7 @@ public class WalkingBear : MonoBehaviour
 
             yield return Walk(target);
 
-            yield return new WaitForSeconds(idleTime);
+            yield return new WaitForSeconds(GetRandomDelay());
         }
     }
 
@@ -196,6 +200,11 @@ public class WalkingBear : MonoBehaviour
         return new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle));
     }
 
+    private float GetRandomDelay()
+    {
+        return Random.Range(idleTimeMin, idleTimeMax);
+    }
+
     private void LookTowards(Vector3 direction)
     {
         Quaternion lookRotation = Quaternion.LookRotation(direction, Vector3.up);
@@ -219,12 +228,22 @@ public class WalkingBear : MonoBehaviour
 
     private void OnValidate()
     {
+        ClampInspectorPositiveValues();
+        ClampInspectorIdleTime();
+    }
+
+    private void ClampInspectorPositiveValues()
+    {
         ClampToZero(ref smokeDelay);
         ClampToZero(ref walkSpeed);
-        ClampToZero(ref idleTime);
         ClampToZero(ref detectionRange);
 
         static void ClampToZero(ref float value) => value = Mathf.Max(value, 0);
+    }
+
+    private void ClampInspectorIdleTime()
+    {
+        idleTimeMax = Mathf.Max(idleTimeMin, idleTimeMax);
     }
 
 #endif

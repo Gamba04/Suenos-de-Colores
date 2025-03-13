@@ -52,7 +52,8 @@ MonoBehaviour:
   smoke: {fileID: 3682318132593212781}
   smokeDelay: 1.75
   walkSpeed: 1
-  idleTime: 10
+  idleTimeMin: 5
+  idleTimeMax: 10
   lookTransition:
     curve:
       serializedVersion: 2
