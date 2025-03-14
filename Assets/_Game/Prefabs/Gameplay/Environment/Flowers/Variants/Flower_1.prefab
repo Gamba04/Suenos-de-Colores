@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &5009068501292880398
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1908600631152557089, guid: 493906bb65ce81c4985a4a3edc009f15,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1908600631152557089, guid: 493906bb65ce81c4985a4a3edc009f15,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1908600631152557089, guid: 493906bb65ce81c4985a4a3edc009f15,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1908600631152557089, guid: 493906bb65ce81c4985a4a3edc009f15,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2254441758524833419, guid: 493906bb65ce81c4985a4a3edc009f15,
+        type: 3}
+      propertyPath: m_Name
+      value: Flower_1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4858738616794412316, guid: 493906bb65ce81c4985a4a3edc009f15,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 4300000, guid: 8c0bf3f1a493be74f90bdbf974949d19, type: 2}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 493906bb65ce81c4985a4a3edc009f15, type: 3}
