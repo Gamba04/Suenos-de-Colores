@@ -1461,12 +1461,13 @@ GameObject:
   m_Component:
   - component: {fileID: 1796126443617842221}
   - component: {fileID: 7974297075006749753}
+  - component: {fileID: 9077537473703832201}
   m_Layer: 0
   m_Name: Bee
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &1796126443617842221
 Transform:
@@ -1503,6 +1504,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &9077537473703832201
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8818193224798348625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35383b2b43f96e14c95c34156c53261e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 7974297075006749753}
 --- !u!1 &9093655224251467480
 GameObject:
   m_ObjectHideFlags: 0
