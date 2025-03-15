@@ -40,10 +40,10 @@ public class BearGraphics : MonoBehaviour
     private readonly int mainTextureID = Shader.PropertyToID("_BaseMap");
     private readonly int normalMapID = Shader.PropertyToID("_BumpMap");
 
-    private readonly Texture2D[] outfitTextures = new Texture2D[OutfitsAmount];
-    private readonly Color[][] outfitPixels = new Color[OutfitsAmount][];
+    private readonly Vector2Int[] outfitSizes = new Vector2Int[OutfitsAmount];
     private readonly float[][][] outfitMasks = new float[OutfitsAmount][][];
     private readonly Color[][] outfitAlbedos = new Color[OutfitsAmount][];
+    private readonly Color[][] outfitPixels = new Color[OutfitsAmount][];
 
     private MaterialPropertyBlock properties;
 
@@ -57,36 +57,24 @@ public class BearGraphics : MonoBehaviour
     {
         properties = new MaterialPropertyBlock();
 
-        InitOutfitContainers();
         InitOutfitData();
-    }
-
-    private void InitOutfitContainers()
-    {
-        for (int i = 0; i < outfitTextures.Length; i++)
-        {
-            OutfitData outfit = outfits[i];
-
-            bool hasAlbedo = outfit.albedo != null;
-            Texture2D reference = hasAlbedo ? outfit.albedo : outfit.masks[0];
-
-            int size = reference.width * reference.height;
-
-            outfitTextures[i] = new Texture2D(reference.width, reference.height);
-            outfitPixels[i] = new Color[size];
-        }
     }
 
     private void InitOutfitData()
     {
-        for (int i = 0; i < outfitMasks.Length; i++)
+        for (int i = 0; i < OutfitsAmount; i++)
         {
             OutfitData outfit = outfits[i];
 
             bool hasAlbedo = outfit.albedo != null;
 
+            Texture2D reference = hasAlbedo ? outfit.albedo : outfit.masks[0];
+            Vector2Int size = new Vector2Int(reference.width, reference.height);
+
+            outfitSizes[i] = size;
             outfitMasks[i] = GetMaskValues(outfit);
             outfitAlbedos[i] = hasAlbedo ? outfit.albedo.GetPixels() : null;
+            outfitPixels[i] = new Color[size.x * size.y];
         }
     }
 
@@ -140,30 +128,46 @@ public class BearGraphics : MonoBehaviour
 
     // ----------------------------------------------------------------------------------------------------------------------------
 
-    #region Other
+    #region Outfit Texture
 
     private async Task<Texture2D> GetOutfitTexture(int outfit, OutfitData data, List<Color> colors)
     {
-        // Get preprocessed data
-        Texture2D texture = outfitTextures[outfit];
-        Color[] pixels = outfitPixels[outfit];
+        // Get data
+        Vector2Int size = outfitSizes[outfit];
         float[][] values = outfitMasks[outfit];
         Color[] albedos = outfitAlbedos[outfit];
-
-        // Get values
-        int width = texture.width;
-        int height = texture.height;
+        Color[] pixels = outfitPixels[outfit];
 
         int layers = Math.Min(data.masks.Count, colors.Count);
 
-        // Generate texture
-        await Task.Run(() =>
+        return await GenerateTexture();
+
+        #region Texture Generation
+
+        async Task<Texture2D> GenerateTexture()
         {
-            for (int y = 0; y < height; y++)
+            await Task.Run(ProcessTexture);
+
+            Texture2D texture = new Texture2D(size.x, size.y);
+
+            await Task.Yield();
+
+            texture.SetPixels(pixels);
+
+            await Task.Yield();
+
+            texture.Apply();
+
+            return texture;
+        }
+
+        void ProcessTexture()
+        {
+            for (int y = 0; y < size.y; y++)
             {
-                for (int x = 0; x < width; x++)
+                for (int x = 0; x < size.x; x++)
                 {
-                    int index = y * width + x;
+                    int index = y * size.x + x;
 
                     Color pixel = Color.white;
 
@@ -181,16 +185,10 @@ public class BearGraphics : MonoBehaviour
                     pixels[index] = pixel;
                 }
             }
-        });
+        }
 
-        // Apply texture
-        texture.SetPixels(pixels);
+        #endregion
 
-        await Task.Yield();
-
-        texture.Apply();
-
-        return texture;
     }
 
     #endregion
