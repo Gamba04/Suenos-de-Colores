@@ -51,6 +51,10 @@ public class WebcamController : MonoBehaviour
 
     [SerializeField]
     private List<OutfitData> outfits = new List<OutfitData>();
+
+    [Header("Info")]
+    [ReadOnly, SerializeField]
+    private Texture2D picture;
     [ReadOnly, SerializeField]
     private List<Color> colors;
 
@@ -76,7 +80,7 @@ public class WebcamController : MonoBehaviour
         List<WebcamDataAsset.OutfitNode> nodes = outfits[(int)outfit].data.Nodes;
         colors = new List<Color>(nodes.Count);
 
-        Texture2D picture = await TakePicture();
+        picture = await TakePicture();
 
         await Task.Yield();
 
@@ -119,8 +123,10 @@ public class WebcamController : MonoBehaviour
     {
         webcam.Play();
 
+        uint targetCount = webcam.updateCount + 2;
+
         do await Task.Yield();
-        while (!webcam.didUpdateThisFrame);
+        while (webcam.updateCount < targetCount);
 
         webcam.Pause();
     }
