@@ -26,68 +26,59 @@ MonoBehaviour:
     position: {x: -0.392, y: -0.257}
     size: 0.01
   - name: Node 4
-    position: {x: -0.371, y: 0.071}
-    size: 0.01
-  - name: Node 5
-    position: {x: -0.37, y: 0.046}
-    size: 0.01
-  - name: Node 6
-    position: {x: -0.371, y: 0.019}
-    size: 0.01
-  - name: Node 7
     position: {x: -0.285, y: -0.065}
     size: 0.13
-  - name: Node 8
+  - name: Node 5
     position: {x: 0.455, y: 0}
     size: 0.23
-  - name: Node 9
+  - name: Node 6
     position: {x: 0.265, y: 0.036}
     size: 0.01
-  - name: Node 10
+  - name: Node 7
     position: {x: -0.172, y: 0.036}
     size: 0.01
-  - name: Node 11
+  - name: Node 8
     position: {x: -0.568, y: 0.036}
     size: 0.01
-  - name: Node 12
+  - name: Node 9
     position: {x: 0.647, y: 0.036}
     size: 0.01
-  - name: Node 13
+  - name: Node 10
     position: {x: -0.407, y: 0.087}
     size: 0.02
-  - name: Node 14
+  - name: Node 11
     position: {x: -0.335, y: 0.087}
     size: 0.02
-  - name: Node 15
+  - name: Node 12
     position: {x: 0.456, y: 0.161}
     size: 0.012
-  - name: Node 16
+  - name: Node 13
     position: {x: 0.456, y: -0.17}
     size: 0.025
-  - name: Node 17
+  - name: Node 14
     position: {x: -0.31, y: -0.18}
     size: 0.025
-  - name: Node 18
+  - name: Node 15
     position: {x: 0.316, y: -0.26}
     size: 0.07
-  - name: Node 19
+  - name: Node 16
     position: {x: -0.255, y: -0.258}
     size: 0.07
-  - name: Node 20
+  - name: Node 17
     position: {x: -0.544, y: -0.2}
     size: 0.025
-  - name: Node 21
+  - name: Node 18
     position: {x: -0.198, y: -0.2}
     size: 0.025
-  - name: Node 22
+  - name: Node 19
     position: {x: -0.392, y: -0.32}
     size: 0.015
-  - name: Node 23
+  - name: Node 20
     position: {x: -0.349, y: -0.32}
     size: 0.015
-  - name: Node 24
+  - name: Node 21
     position: {x: 0.35, y: -0.334}
     size: 0.015
-  - name: Node 25
+  - name: Node 22
     position: {x: 0.56, y: -0.334}
     size: 0.015
