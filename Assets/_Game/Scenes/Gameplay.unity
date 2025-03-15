@@ -2232,6 +2232,7 @@ MonoBehaviour:
     data: {fileID: 11400000, guid: 2778c310e9855024cb6c7f3b3229e3de, type: 2}
   - name: Outfit_3
     data: {fileID: 11400000, guid: 3d6e79a418a04fc42bad4676719095b1, type: 2}
+  picture: {fileID: 0}
   colors: []
 --- !u!114 &2144003974
 MonoBehaviour:

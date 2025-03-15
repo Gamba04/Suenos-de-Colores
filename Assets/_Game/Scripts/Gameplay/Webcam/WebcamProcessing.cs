@@ -1,9 +1,12 @@
+using System;
 using System.Threading.Tasks;
 using UnityEngine;
 
 public static class WebcamProcessing
 {
-    private const float brightnessBoost = 1.1f;
+    private const float brightnessBoost = 1.2f;
+
+    private const uint asyncThreshold = 1000;
 
     public static async Task<Color> ScanColor(Texture2D texture, Vector2 position, float size)
     {
@@ -16,7 +19,10 @@ public static class WebcamProcessing
         // Get color
         Color[] pixels = GetPixels(texture, position, size);
 
-        Color color = await Task.Run(() => GetAverage(pixels));
+        bool runAsync = pixels.Length >= asyncThreshold;
+        Func<Color> getAverage = () => GetAverage(pixels);
+
+        Color color = runAsync ? await Task.Run(getAverage) : getAverage();
 
         // Process color
         color *= brightnessBoost;
@@ -41,7 +47,6 @@ public static class WebcamProcessing
         foreach (Color pixel in pixels)
         {
             float weight = Mathf.Max(pixel.r, pixel.g, pixel.b);
-            weight = 1;
 
             color += pixel * weight;
             total += weight;
